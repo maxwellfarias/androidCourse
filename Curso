@@ -13,11 +13,28 @@ Comandos basicos:
 
     git add -A 
         Adiciona todos os arquivos intracked (nao monitorados) para o monitoramento do git
+
     git commit -m "Escreve o comentario"
         Envia as modificacoes
+
     git log
         Lista todos os commits feitos
-    
+
+    git branch
+        Lista dos os branchs, o que * eh o branch atual
+
+    git commit -am "Mesagem"
+        Adiciona e ao mesmo tempo faz o commit
+
+    git reset --soft/mixed/hard id_do_commit
+        Reseta para um determinado ponto usando o id do commit (pode copiar todo o rash todo ou apenas os 7 primeiros digitos)
+        Soft: Volta para o rash especificado, mas sem as alterações posteriores comitadas.
+        Mixed: eh parecido com o soft, mas sera necessario dar o add novamente
+        Hard: Vai ignorar todas as alterações posteriores
+
+        
+
+     
 
     
     
