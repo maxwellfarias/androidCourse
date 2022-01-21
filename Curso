@@ -23,7 +23,7 @@ Comandos basicos:
     git branch
         Lista dos os branchs, o que * eh o branch atual
 
-    git commit -am "Mesagem"
+    git commit -am "Mensagem"
         Adiciona e ao mesmo tempo faz o commit
 
     git reset --soft/mixed/hard id_do_commit
