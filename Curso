@@ -7,10 +7,17 @@ Comandos basicos:
 
     git status
         Varre a pasta e verifica o que foi modificado
+
     git add nome_do_arquivo
         Adiciona o arquivo ao monitoramento do git
-    git add -a 
+
+    git add -A 
         Adiciona todos os arquivos intracked (nao monitorados) para o monitoramento do git
+    git commit -m "Escreve o comentario"
+        Envia as modificacoes
+    git log
+        Lista todos os commits feitos
+    
 
-
+    
     
