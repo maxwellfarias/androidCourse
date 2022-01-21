@@ -32,6 +32,30 @@ Comandos basicos:
         Mixed: eh parecido com o soft, mas sera necessario dar o add novamente
         Hard: Vai ignorar todas as alterações posteriores
 
+    git branch nome_do_branch_a_ser_criado
+        Cria um novo branch, o novo branch criado tera todos os arquivos e modificacoes do branch atual. Dessa forma, pode ser feito versões diferentes do sistema e modifica-los ao mesmo tempo.
+
+    git checkout nome_do_branch_que_se_deseja
+        Muda para outro branch
+
+    git diff
+        Mostra as informacoes de todos os arquivos que foram modificados.
+
+    git diff --name-only
+        Mostra apenas o nome dos arquivos que foram modificados.
+
+    git diff nome
+        Mostra as alteracoes de um arquivo em especifico
+
+    git checkout HEAD -- nome_do_arquivo_que_se_deseja_voltar_as_modificacoes
+        Cancela as modificacoes encontradas no diff        
+        HEAD -> pega o nome do branch atual
+
+
+     
+
+    
+    
         
 
      
