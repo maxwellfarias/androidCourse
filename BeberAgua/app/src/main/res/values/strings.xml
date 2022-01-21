@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BeberAgua</string>
+    <string name="edit_text_interval_number">Interval (min)</string>
+    <string name="btn_notify_text">Notify</string>
+    <string name="msg_error">Enter the range</string>
+    <string name="pause">Pause</string>
+</resources>
