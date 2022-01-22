@@ -1,4 +1,6 @@
 Anotações sobre as instruções do Git
+TK:max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
+
 
 Branch - Versoes diferentes do sistema
     Master -  Eh a versão principal
@@ -52,8 +54,11 @@ Comandos basicos:
         HEAD -> pega o nome do branch atual, pode ser substituido pelo nome da branch atual
     
     git push nome_do_destino nome_do_branch - > git push origin master
+        Enviar as informações para o servidor remoto.
 
-    TK:max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
+    
+
+
     
 
 
