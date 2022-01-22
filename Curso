@@ -73,6 +73,19 @@ Comandos basicos:
     git revert --no-edit rash_id
         Faz um commite revertendo a um determinado rash_id, "salvador da sexta-feira", pois retorna para um tempo especifico, mas o hash da modificacao que supostamente causou o problema, continua acessível, sendo possível retorna para ele a fim de resolver o problema. 
     
+    git remote -v
+        Mostra os nomes remotos usados para o push        
+
+    git pull nome_do_destino nome_do_branch
+        Puxa todos os arquivos da nuvem - RECOMENDAÇÃO: Ao trabalhar em equipe, antes de dar um push, dê sempre um pull.
+
+    git clone url_do_projeto
+        Faz uma copia de todos os arquivos da url especificada. Caso o projeto seja meu, eu posso fazer pushs. Se não for meu, eh preciso dar um fork.
+
+    COMO CONTRIBUIR COM ALGUM PROJETO QUE NAO EH SEU?
+    Primeiro dar um fork e sera criado esse mesmo projeto so que no meu proprio repositorio (sendo uma copia do original, mas sendo agora da minha propriedade). Depois dar um clone (para fazer as modificacoes offline), faz as modificacoes que se deseja -> Da um push -> Clica em create pull request e envia as informacoes do porque esta sendo solicitado essas mudancas. Se a pull request for aceita, sera feito um mergie com o projeto original.
+
+
     
 
 
