@@ -62,7 +62,10 @@ Comandos basicos:
             *.sql -> Ignora todos os arquivos com extensao .sql
             *.txt
             nome_da_pasta/* -> Ignora todos os arquivos dentro da pasta
-            nome_da_pasta/  -> Ignora a pasta            
+            nome_da_pasta/  -> Ignora a pasta  
+
+    git revert --no-edit rash_id
+        Faz um commite revertendo a um determinado rash_id, "salvador da sexta-feira", pois retorna para um tempo especifico, mas o hash da modificacao que supostamente causou o problema, continua acessível, sendo possível retorna para ele a fim de resolver o problema. 
     
 
 
