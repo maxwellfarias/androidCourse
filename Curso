@@ -55,7 +55,14 @@ Comandos basicos:
     
     git push nome_do_destino nome_do_branch - > git push origin master
         Enviar as informações para o servidor remoto.
-
+    
+    Ignorar arquivos
+        Cria-se um arquivo '.ignore' e em seu conteudo coloca-se a lista dos nomes dos arquivos e pastas que serao ignorados pelo git
+            nome_do_arquivo.extensao
+            *.sql -> Ignora todos os arquivos com extensao .sql
+            *.txt
+            nome_da_pasta/* -> Ignora todos os arquivos dentro da pasta
+            nome_da_pasta/  -> Ignora a pasta         
     
 
 
