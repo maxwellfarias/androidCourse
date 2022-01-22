@@ -55,7 +55,13 @@ Comandos basicos:
     
     git push nome_do_destino nome_do_branch - > git push origin master
         Enviar as informações para o servidor remoto.
+
+    git push nome_do_destino :nome_do_branch - > git push origin :master
+        Apaga o branch remoto
     
+    git branch -D nome_do_branch
+        Apaga o branch local
+
     Ignorar arquivos
         Cria-se um arquivo '.ignore' e em seu conteudo coloca-se a lista dos nomes dos arquivos e pastas que serao ignorados pelo git
             nome_do_arquivo.extensao
@@ -66,6 +72,7 @@ Comandos basicos:
 
     git revert --no-edit rash_id
         Faz um commite revertendo a um determinado rash_id, "salvador da sexta-feira", pois retorna para um tempo especifico, mas o hash da modificacao que supostamente causou o problema, continua acessível, sendo possível retorna para ele a fim de resolver o problema. 
+    
     
 
 
