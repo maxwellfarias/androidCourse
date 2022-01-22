@@ -49,7 +49,10 @@ Comandos basicos:
 
     git checkout HEAD -- nome_do_arquivo_que_se_deseja_voltar_as_modificacoes
         Cancela as modificacoes encontradas no diff        
-        HEAD -> pega o nome do branch atual
+        HEAD -> pega o nome do branch atual, pode ser substituido pelo nome da branch atual
+    
+    
+    
 
 
      
