@@ -84,21 +84,3 @@ Comandos basicos:
 
     COMO CONTRIBUIR COM ALGUM PROJETO QUE NAO EH SEU?
     Primeiro dar um fork e sera criado esse mesmo projeto so que no meu proprio repositorio (sendo uma copia do original, mas sendo agora da minha propriedade). Depois dar um clone (para fazer as modificacoes offline), faz as modificacoes que se deseja -> Da um push -> Clica em create pull request e envia as informacoes do porque esta sendo solicitado essas mudancas. Se a pull request for aceita, sera feito um mergie com o projeto original.
-
-
-    
-
-
-    
-
-
-     
-
-    
-    
-        
-
-     
-
-    
-    
