@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             List<Movie> movies = new ArrayList<>();
             for (int j = 0; j < 30; j++) {
                 Movie movie = new Movie();
-                movie.setCoverUrl(R.drawable.movie);
+                movie.setCoverUrl(R.drawable.movie_4);
                 movies.add(movie);
             }
 
@@ -44,57 +44,55 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
         RecyclerView rvMain = findViewById(R.id.rv_view_main);
-        rvMain.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        MainAdapter adapter = new MainAdapter(categories);
-        rvMain.setAdapter(adapter);
+        rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        rvMain.setAdapter(new MainAdapter (categories));
 
     }
 
-    //Referencia o holder da Category
     private class CategoryHolder extends RecyclerView.ViewHolder {
-        TextView textViewtitle;
-        RecyclerView rvMovie;
+        private TextView textViewTitle;
+        private RecyclerView recyclerViewMain;
 
-        public CategoryHolder(@NonNull @NotNull View itemView) {
-            super(itemView);
-
-            textViewtitle = itemView.findViewById(R.id.text_view_title);
-            rvMovie = itemView.findViewById(R.id.rv_movie);
+        public TextView getTextViewTitle() {
+            return textViewTitle;
         }
 
+        public RecyclerView getRecyclerViewMain() {
+            return recyclerViewMain;
+        }
 
+        public CategoryHolder(@NotNull View itemView) {
+            super(itemView);
+
+            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            recyclerViewMain = itemView.findViewById(R.id.rv_view_main);
+        }
     }
-    
 
-    private class MovieHolder extends RecyclerView.ViewHolder {
-        public MovieHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-        ImageView imageViewCover = itemView.findViewById(R.id.image_view_cover);
-
-         }
 
     private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
+        private List<Category> categories;
 
-        private final List<Category> categories;
-
-        private MainAdapter (List<Category> categories) {
+        public MainAdapter(List<Category> categories) {
             this.categories = categories;
         }
+
+
+
         @NonNull
+        @NotNull
         @Override
-        public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new CategoryHolder(getLayoutInflater().inflate(R.layout.category_item, parent, false));
+        public CategoryHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+            return new CategoryHolder (getLayoutInflater().inflate(R.layout.category_item, parent,false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull  MainActivity.CategoryHolder holder, int position) {
+        public void onBindViewHolder(@NonNull @NotNull CategoryHolder holder, int position) {
             Category category = categories.get(position);
-            holder.textViewtitle.setText(category.getName());
-            holder.rvMovie.setAdapter(new MovieAdapter(category.getMovies()));
-            holder.rvMovie.setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
+            holder.getTextViewTitle().setText(category.getName());
+            holder.getRecyclerViewMain().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
+            holder.getRecyclerViewMain().setAdapter(new MovieAdapter (category.getMovies()));
 
         }
 
@@ -104,24 +102,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class MovieHolder extends RecyclerView.ViewHolder {
+        private ImageView imageViewCover;
+
+        public ImageView getImageViewCover() {
+            return imageViewCover;
+        }
+
+
+        public MovieHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+            imageViewCover = itemView.findViewById(R.id.image_view_cover);
+        }
+    }
+
     private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
 
         private final List<Movie> movies;
 
-        private MovieAdapter (List<Movie> movies) {
+        private MovieAdapter(List<Movie> movies) {
             this.movies = movies;
         }
+
         @NonNull
+        @NotNull
         @Override
-        public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new MovieHolder(getLayoutInflater().inflate(R.layout.movie_item, parent, false));
+        public MovieHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+            return new MovieHolder (getLayoutInflater().inflate(R.layout.movie_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull  MainActivity.MovieHolder holder, int position) {
+        public void onBindViewHolder(@NonNull @NotNull MovieHolder holder, int position) {
             Movie movie = movies.get(position);
-            holder.imageViewCover.setImageResource(movie.getCoverUrl());
-
+            holder.getImageViewCover().setImageResource(movie.getCoverUrl());
         }
 
         @Override
@@ -129,4 +142,7 @@ public class MainActivity extends AppCompatActivity {
             return movies.size();
         }
     }
+
+
+
 }
