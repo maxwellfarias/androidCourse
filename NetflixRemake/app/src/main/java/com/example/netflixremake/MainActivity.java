@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         List<Category> categories = new ArrayList<>();
 
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             Category category = new Category("Cat " + i);
 
             List<Movie> movies = new ArrayList<>();
-            for (int j = 0; j<30; j++){
+            for (int j = 0; j < 30; j++) {
                 Movie movie = new Movie();
                 movie.setCoverUrl(R.drawable.movie);
                 movies.add(movie);
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Referencia o holder da Category
     private class CategoryHolder extends RecyclerView.ViewHolder {
         TextView textViewtitle;
         RecyclerView rvMovie;
