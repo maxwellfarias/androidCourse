@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.netflixremake.model.Category;
 import com.example.netflixremake.model.Movie;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,20 +52,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private class CategoryHolder extends RecyclerView.ViewHolder {
+        TextView textViewtitle;
+        RecyclerView rvMovie;
+
+        public CategoryHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+
+            textViewtitle = itemView.findViewById(R.id.text_view_title);
+            rvMovie = itemView.findViewById(R.id.rv_movie);
+        }
+
+
+    }
     
 
     private class MovieHolder extends RecyclerView.ViewHolder {
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
         }
+        ImageView imageViewCover = itemView.findViewById(R.id.image_view_cover);
 
-        void bind (Category category){
+         }
 
-
-        }
-    }
-
-    private class MainAdapter extends RecyclerView.Adapter<MovieHolder> {
+    private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
 
         private final List<Category> categories;
 
@@ -70,19 +84,48 @@ public class MainActivity extends AppCompatActivity {
         }
         @NonNull
         @Override
-        public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new MovieHolder(getLayoutInflater().inflate(R.layout.movie_item, parent, false));
+        public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new CategoryHolder(getLayoutInflater().inflate(R.layout.category_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull MainActivity.MovieHolder holder, int position) {
-            holder.bind(categories.get(position));
+        public void onBindViewHolder(@NonNull  MainActivity.CategoryHolder holder, int position) {
+            Category category = categories.get(position);
+            holder.textViewtitle.setText(category.getName());
+            holder.rvMovie.setAdapter(new MovieAdapter(category.getMovies()));
+            holder.rvMovie.setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
 
         }
 
         @Override
         public int getItemCount() {
             return categories.size();
+        }
+    }
+
+    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
+
+        private final List<Movie> movies;
+
+        private MovieAdapter (List<Movie> movies) {
+            this.movies = movies;
+        }
+        @NonNull
+        @Override
+        public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MovieHolder(getLayoutInflater().inflate(R.layout.movie_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull  MainActivity.MovieHolder holder, int position) {
+            Movie movie = movies.get(position);
+            holder.imageViewCover.setImageResource(movie.getCoverUrl());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return movies.size();
         }
     }
 }
