@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.example.netflixremake.model.Category;
 import com.example.netflixremake.model.Movie;
 
 import java.util.ArrayList;
@@ -24,32 +22,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Movie> movies = new ArrayList<>();
 
-        for (int i = 0; i<30; i++){
-            Movie movie = new Movie();
-            movie.setCoverUrl("Item " + i);
-            movies.add(movie);
+        List<Category> categories = new ArrayList<>();
+
+        for (int i=0; i<10; i++) {
+            Category category = new Category("Cat " + i);
+
+            List<Movie> movies = new ArrayList<>();
+            for (int j = 0; j<30; j++){
+                Movie movie = new Movie();
+                movie.setCoverUrl(R.drawable.movie);
+                movies.add(movie);
+            }
+
+            category.setMovies(movies);
+            categories.add(category);
+
         }
+
 
         RecyclerView rvMain = findViewById(R.id.rv_view_main);
         rvMain.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        MainAdapter adapter = new MainAdapter(movies);
+        MainAdapter adapter = new MainAdapter(categories);
         rvMain.setAdapter(adapter);
 
     }
+
+    
 
     private class MovieHolder extends RecyclerView.ViewHolder {
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        void bind (Movie movie){
-
-            TextView textView = itemView.findViewById(R.id.text_view_url);
-
-            textView.setText(movie.getCoverUrl());
-
+        void bind (Category category){
 
 
         }
@@ -57,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
     private class MainAdapter extends RecyclerView.Adapter<MovieHolder> {
 
-        private final List<Movie> movies;
+        private final List<Category> categories;
 
-        private MainAdapter (List<Movie> movies) {
-            this.movies = movies;
+        private MainAdapter (List<Category> categories) {
+            this.categories = categories;
         }
         @NonNull
         @Override
@@ -70,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull MainActivity.MovieHolder holder, int position) {
-            holder.bind(movies.get(position));
+            holder.bind(categories.get(position));
 
         }
 
         @Override
         public int getItemCount() {
-            return movies.size();
+            return categories.size();
         }
     }
 }

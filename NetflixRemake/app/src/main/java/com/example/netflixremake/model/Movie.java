@@ -3,17 +3,13 @@ package com.example.netflixremake.model;
 //Faz referencia ao icone do filme
 public class Movie {
 
-    private String coverUrl;
+    private int coverUrl;
 
-    public String getCoverUrl() {
+    public int getCoverUrl() {
         return coverUrl;
     }
 
-    public void setCoverUrl(String coverUrl) {
+    public void setCoverUrl(int coverUrl) {
         this.coverUrl = coverUrl;
     }
-
-
-
-
 }

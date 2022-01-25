@@ -4,6 +4,10 @@ import java.util.List;
 //Faz referencia a cada categoria do filme dividida por temas
 public class Category {
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     private String name;
     private List<Movie> movies;
 
