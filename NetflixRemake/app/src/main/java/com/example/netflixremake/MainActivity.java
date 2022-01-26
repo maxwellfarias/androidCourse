@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<Category> categories = new ArrayList<>();
-
         for (int i = 0; i < 10; i++) {
-            Category category = new Category("Cat " + i);
+            Category category = new Category("Category " + i);
 
             List<Movie> movies = new ArrayList<>();
             for (int j = 0; j < 30; j++) {
