@@ -21,6 +21,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView rvMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            RecyclerView rvMain = findViewById(R.id.rv_view_main);
+            rvMain = findViewById(R.id.rv_view_main);
             rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
             rvMain.setAdapter(new MainAdapter(categories));
 
@@ -51,21 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
         private class CategoryHolder extends RecyclerView.ViewHolder {
             private TextView textViewTitle;
-            private RecyclerView recyclerViewMain;
+            private RecyclerView recyclerViewMovie;
 
             public TextView getTextViewTitle() {
                 return textViewTitle;
             }
 
-            public RecyclerView getRecyclerViewMain() {
-                return recyclerViewMain;
+            public RecyclerView getRecyclerViewMovie() {
+                return recyclerViewMovie;
             }
 
             public CategoryHolder(@NotNull View itemView) {
                 super(itemView);
 
                 textViewTitle = itemView.findViewById(R.id.text_view_title);
-                recyclerViewMain = itemView.findViewById(R.id.rv_view_main);
+                recyclerViewMovie = itemView.findViewById(R.id.rv_movie);
             }
         }
 
@@ -89,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             public void onBindViewHolder(@NonNull @NotNull CategoryHolder holder, int position) {
                 Category category = categories.get(position);
                 holder.getTextViewTitle().setText(category.getName());
-                holder.getRecyclerViewMain().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
-                holder.getRecyclerViewMain().setAdapter(new MovieAdapter(category.getMovies()));
+                holder.getRecyclerViewMovie().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
+                holder.getRecyclerViewMovie().setAdapter(new MovieAdapter(category.getMovies()));
 
             }
 

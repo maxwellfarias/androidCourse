@@ -11,7 +11,7 @@
     de todas as propriedades do category_item a fim de saber como ficara-->
 
     <!--As dimensoes da imagem irao respeitar as proporcoes de aspect ratio (4x3/16x9/)
-    16x10...) Capas de filmes eh praticamente a proporcao de 9x16. android:scaleType="centerCrop"
+    16x10...) Capas de filmes eh praticamente a proporcao de 9x16. android:scaleType=""
     contem as opcoes de ajuste da foto e o  layout_constraintDimensionRatio define
     as proporcoes da foto
     -->
