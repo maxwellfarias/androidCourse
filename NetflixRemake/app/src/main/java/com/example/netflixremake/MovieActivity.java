@@ -19,6 +19,7 @@ public class MovieActivity extends AppCompatActivity {
 
         //Verifica se o ActionBar foi adicionada
         if (getSupportActionBar() != null) {
+
             //Exibe o icone de home
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //Adiciona a seta para voltar
