@@ -6,16 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MovieActivity">
 
+    <ImageView
+        android:id="@+id/image_view_cover_play"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/shadows"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- A tag ?attr/ busca recursos padroes do android ou dos meus recursos-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:layout_constraintStart_toStartOf="@id/image_view_cover_play"
+        app:layout_constraintEnd_toEndOf="@id/image_view_cover_play"
+        app:layout_constraintTop_toTopOf="@id/image_view_cover_play"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_cover_play"
+        android:src="@drawable/ic_baseline_play_circle_outline_24"/>
+
+    <TextView
+        android:id="@+id/text_view_title_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_cover_play"
+        app:layout_constraintStart_toStartOf="@id/image_view_cover_play"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:layout_marginBottom="26dp"
+        android:textColor="@color/white"
+
+
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
