@@ -1,5 +1,6 @@
 package com.example.netflixremake;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,12 +8,23 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.netflixremake.model.Movie;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieActivity extends AppCompatActivity {
+    RecyclerView rvSimilar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +63,53 @@ public class MovieActivity extends AppCompatActivity {
             ((ImageView)findViewById(R.id.image_view_cover_play)).setImageDrawable(drawable);
         }
 
+        List<Movie> movies = new ArrayList<>();
+        for (int i=0; i<30; i++){
+          Movie movie = new Movie();
+          movie.setCoverUrl(R.drawable.movie_4);
+          movies.add(movie);
+        }
+
+        rvSimilar = findViewById(R.id.rv_similar);
+        rvSimilar.setAdapter(new MovieSimilarAdapter(movies));
+        rvSimilar.setLayoutManager(new GridLayoutManager(this, 3));
+    }
+
+    private class MovieSimilarHolder extends  RecyclerView.ViewHolder {
+        ImageView imageViewSimilarItem;
+        public MovieSimilarHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+
+            imageViewSimilarItem = itemView.findViewById(R.id.image_view_cover_similar);
+        }
+    }
+
+    private class MovieSimilarAdapter extends RecyclerView.Adapter<MovieSimilarHolder> {
+
+        public MovieSimilarAdapter(List<Movie> movies) {
+            this.movies = movies;
+        }
+
+        private List<Movie> movies;
+
+
+        @NonNull
+        @NotNull
+        @Override
+        public MovieSimilarHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+            return new MovieSimilarHolder(getLayoutInflater().inflate(R.layout.movie_item_similar, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull @NotNull MovieSimilarHolder holder, int position) {
+            Movie movie = movies.get(position);
+
+          //  holder.imageViewSimilarItem.setImageResource(movie.getCoverUrl());
+        }
+
+        @Override
+        public int getItemCount() {
+            return movies.size();
+        }
     }
 }

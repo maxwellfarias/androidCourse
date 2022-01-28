@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--NestedScrollView possibilita que ao ser feita a rolagem da RecycleView
+em formato de GRID todo o resto da tela tambem ira acompanhar o movimento
+OBS.: Foi necessário fazer uma alteracao na recyclerView
+
+Se preferir deixar a RecyclerView presa, basta colocar o constraint layout como a tag raiz
+-->
+
+<androidx.core.widget.NestedScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -32,13 +44,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="@id/image_view_cover_play"
         app:layout_constraintEnd_toEndOf="@id/image_view_cover_play"
         app:layout_constraintTop_toTopOf="@id/image_view_cover_play"
         app:layout_constraintBottom_toBottomOf="@id/image_view_cover_play"
-        android:src="@drawable/ic_baseline_play_circle_outline_24"/>
+        android:src="@drawable/play_buttom"/>
 
 <!--tools:text="TextView" aparece no design, mas não aparece quando o app é executado. -->
     <TextView
@@ -104,14 +116,23 @@
         android:textAllCaps="true"
         android:textSize="14sp"/>
 
+
+    <!-- As seguintes alteracoes foram realizadas para que a relagem da recyclerView
+       pudesse levar toda a pagina junto:
+
+       android:layout_height -> Passou de 0dp para wrap_content
+       app:layout_constraintBottom_toBottomOf="parent" foi apagado
+       -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_similar"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        tools:listitem="@layout/movie_item_similar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
