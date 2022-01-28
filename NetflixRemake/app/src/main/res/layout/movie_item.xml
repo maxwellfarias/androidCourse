@@ -29,4 +29,5 @@
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="w,3:4"/>
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

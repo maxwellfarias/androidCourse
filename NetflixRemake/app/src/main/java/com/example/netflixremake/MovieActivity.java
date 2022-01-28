@@ -2,9 +2,11 @@ package com.example.netflixremake;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -29,6 +31,9 @@ public class MovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //Adiciona a seta para voltar
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+            toolbar.setOnClickListener(v -> {
+                    startActivity(new Intent(getBaseContext(), MainActivity.class));
+            });
         }
 
         //Metodo para manipular um drawble, nao foi usado apenas o getDrawble pois o ContextCompat tem metodos com mais compatibilidade a dispositivos antigos
@@ -43,7 +48,8 @@ public class MovieActivity extends AppCompatActivity {
             drawable.setDrawableByLayerId(R.id.cover_drawable, movieCover);
 
             //Acessa o ImageView do movieItem.xlm e troca a imagem de fundo.
-            ((ImageView) findViewById(R.id.image_view_cover)).setImageDrawable(drawable);
+            ((ImageView)findViewById(R.id.image_view_cover_play)).setImageDrawable(drawable);
         }
+
     }
 }

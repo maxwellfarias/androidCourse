@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
             public MovieHolder(@NonNull @NotNull View itemView) {
                 super(itemView);
-                imageViewCover = itemView.findViewById(R.id.image_view_cover);
+                 imageViewCover = itemView.findViewById(R.id.image_view_cover);
             }
         }
 
