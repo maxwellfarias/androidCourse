@@ -31,9 +31,9 @@ public class MovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //Adiciona a seta para voltar
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
-            toolbar.setOnClickListener(v -> {
-                    startActivity(new Intent(getBaseContext(), MainActivity.class));
-            });
+
+            //Oculta o titulo
+            getSupportActionBar().setTitle(null);
         }
 
         //Metodo para manipular um drawble, nao foi usado apenas o getDrawble pois o ContextCompat tem metodos com mais compatibilidade a dispositivos antigos
@@ -42,7 +42,7 @@ public class MovieActivity extends AppCompatActivity {
 
         //Verifica se eh diferente de null para nao dar nullpointer no codigo
         if (drawable != null) {
-            Drawable movieCover = ContextCompat.getDrawable(this, R.drawable.movie);
+            Drawable movieCover = ContextCompat.getDrawable(this, R.drawable.movie_4);
 
             //Acessando o item das sombras e trocando a sua propriedade
             drawable.setDrawableByLayerId(R.id.cover_drawable, movieCover);

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".MovieActivity">
 
     <ImageView
@@ -39,6 +40,7 @@
         app:layout_constraintBottom_toBottomOf="@id/image_view_cover_play"
         android:src="@drawable/ic_baseline_play_circle_outline_24"/>
 
+<!--tools:text="TextView" aparece no design, mas não aparece quando o app é executado. -->
     <TextView
         android:id="@+id/text_view_title_cover"
         android:layout_width="wrap_content"
@@ -48,12 +50,68 @@
         app:layout_constraintBottom_toBottomOf="@+id/image_view_cover_play"
         app:layout_constraintStart_toStartOf="@id/image_view_cover_play"
         android:layout_marginStart="16dp"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_marginBottom="26dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/text_view_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/ColorGrayLighter"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:lineSpacingExtra="3sp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Super Heroes çkasjfsamdflkçjasdklfjion klfsskldajfs afdasndf sakdjfs,danfmsadjfklçasjdfiwenfs.a, m klsjadfj asiodmnsadfm,nasdfjiaosasdfasdfsadf fjsdklç fklsçfg fsdgsdafasd fsadf"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_cover_play"/>
+
+    <TextView
+        android:id="@+id/text_view_cast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:lineSpacingExtra="3sp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Super Heroes çkasjfsamdflkçjasdklfjion klfsskldajfs afdasndf sakdjfs,danfmsadjfklçasjdfiwenfs.a, m klsjadfj asiodmnsadfm,nasdfjiaosasdfasdfsadf fjsdklç fklsçfg fsdgsdafasd fsadf"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_desc"/>
+
+<!--  android:textAllCaps="true" -> Deixa todas as letras maiusculas-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/similar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_cast"
         android:textColor="@color/white"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textSize="14sp"/>
 
-
-
-        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_similar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
