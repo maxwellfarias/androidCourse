@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.netflixremake.model.Category;
 import com.example.netflixremake.model.Movie;
+import com.example.netflixremake.util.JsonDownloadTask;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Movie> movies = new ArrayList<>();
                 for (int j = 0; j < 30; j++) {
                     Movie movie = new Movie();
-                    movie.setCoverUrl(R.drawable.movie_4);
+                    //movie.setCoverUrl(R.drawable.movie_4);
                     movies.add(movie);
                 }
 
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             rvMain = findViewById(R.id.rv_view_main);
             rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
             rvMain.setAdapter(new MainAdapter(categories));
+
+
+            //Executa a progressBar, o metodo execute tem como parametro o link que se encontra o arquivos json
+            new JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home");
 
         }
 

@@ -66,7 +66,7 @@ public class MovieActivity extends AppCompatActivity {
         List<Movie> movies = new ArrayList<>();
         for (int i=0; i<30; i++){
           Movie movie = new Movie();
-          movie.setCoverUrl(R.drawable.movie_4);
+         // movie.setCoverUrl(R.drawable.movie_4);
           movies.add(movie);
         }
 
