@@ -107,6 +107,7 @@ public class JsonDownloadTask extends AsyncTask<String, Void, List<Category>> {
     private List<Category> getCategories(JSONObject json) throws JSONException {
         List<Category> categories = new ArrayList<>();
 
+        //Cria um objeto array no qual possui objtos json
         JSONArray categoryArray = json.getJSONArray("category");
         for (int i = 0; i < categoryArray.length(); i++) {
             JSONObject category = categoryArray.getJSONObject(i);
@@ -157,6 +158,7 @@ public class JsonDownloadTask extends AsyncTask<String, Void, List<Category>> {
         super.onPostExecute(categories);
 
         //Sumir com a barra de progressao
-        //dialog.dismiss();
+        dialog.dismiss();
+
     }
 }
