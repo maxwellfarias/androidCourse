@@ -5,6 +5,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.netflixremake.model.Category;
+import com.example.netflixremake.model.Movie;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -21,7 +26,7 @@ import javax.net.ssl.HttpsURLConnection;
 Os parametro sao String(url), um objeto Void (colocado apenas para nao fazer nada a fim de suprir o requisito de se ter esse parametro)
 e uma lista de categoria que eh o que o arquivo json de fato tem.*/
 
-public class JsonDownloadTask extends AsyncTask <String, Void, List<Category>>{
+public class JsonDownloadTask extends AsyncTask<String, Void, List<Category>> {
     /*Criando uma progress bar, ela esta depreciada tambem nesse momento porque mostra a tela cheia, esse era um recurso
     utilizado antigamete. Eh possivel criar uma progress bar na interface grafica (FrameLayout)*/
 
@@ -29,7 +34,7 @@ public class JsonDownloadTask extends AsyncTask <String, Void, List<Category>>{
     ProgressDialog dialog;
 
     //Criado um construtor para pegar o context
-    public JsonDownloadTask (Context context) {
+    public JsonDownloadTask(Context context) {
         this.context = context;
     }
 
@@ -58,12 +63,12 @@ public class JsonDownloadTask extends AsyncTask <String, Void, List<Category>>{
             //Tempo de espera de leitura (valor passado em milisegundos)
             urlConnection.setReadTimeout(2000);
 
-            //Quanto tempo deve ser esperado para mostrar uma mensagem de erro
+            //Quanto tempo deve ser esperado para mostrar uma mensagem de erro (nos casos em que a internet caiu)
             urlConnection.setConnectTimeout(2000);
 
             //Toda requisicao dara um status code, geralmente quando o status code eh maior que 400 eh porque algo deu errado.
             int responseCode = urlConnection.getResponseCode();
-            if(responseCode > 400) {
+            if (responseCode > 400) {
                 throw new IOException("Erro na comunicacao do servidor");
             }
 
@@ -77,6 +82,15 @@ public class JsonDownloadTask extends AsyncTask <String, Void, List<Category>>{
 
             String jsonAsString = toString(in);
 
+            //Transformando toda a string em um objeto json
+            List<Category> categories = getCategories(new JSONObject(jsonAsString));
+
+            //Fecha a conexao
+            in.close();
+
+            //
+            return categories;
+
         } catch (MalformedURLException e) {
             //Retorna um erro se a url estiver mal formatada
             e.printStackTrace();
@@ -84,22 +98,55 @@ public class JsonDownloadTask extends AsyncTask <String, Void, List<Category>>{
             //Retorna um erro que nao conseguir abrir a conexao
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return null;
     }
+// metodo que converte string em um objeto json
+    private List<Category> getCategories(JSONObject json) throws JSONException {
+        List<Category> categories = new ArrayList<>();
+
+        JSONArray categoryArray = json.getJSONArray("category");
+        for (int i = 0; i < categoryArray.length(); i++) {
+            JSONObject category = categoryArray.getJSONObject(i);
+            String title = category.getString("title");
+
+            JSONArray movieArray = category.getJSONArray("movie");
+            List<Movie> movies = new ArrayList<>();
+            for (int j = 0; j < movieArray.length(); j++) {
+                JSONObject movieJson = movieArray.getJSONObject(j);
+
+                String cover_url = movieJson.getString("cover_url");
+                Movie movieObj = new Movie();
+                movieObj.setCoverUrl(cover_url);
+                movies.add(movieObj);
+            }
+
+            Category categoryObj = new Category(title);
+            categoryObj.setMovies(movies);
+
+            categories.add(categoryObj);
+        }
+        return categories;
+    }
 
     //Transformando todos os bytes em caracteres no formato de string
-    private String toString (InputStream is) throws IOException {
+    private String toString(InputStream is) throws IOException {
         byte[] bytes = new byte[1024];
+        //baos funciona como uma matriz de bytes que sera responsavel por armazenar varios arrays de bytes que virao do fluxos de bytes dado no parametro ( BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());)
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        //o inteiro 'lidos' sera usado como teste para o loop acontecer, is.read(bytes) retorna um inteiro com o numero de bytes que foi lido em cada linha do fluxo, essa leitura eh
+        //feita da primeira linha ate a ultima. Ao chegar no final, eh retornado o valor -1 indicando que nao ha mais dados para serem lidos.
         int lidos;
         while ((lidos = is.read(bytes)) > 0) {
-            //Toda vez que eles conseguirem ler esses bytes, no caso maior que zero, eu vou escrever na saida esses bytes, iniciando no indice zero
-            //indo ate o final
+            /*is.read(bytes)  -> o array bytes que eh passado como parametro e povoado com os bytes lidos na linha do fluxo e eh adicionado ao obeto baos atraves do codigo (baos.write(bytes, 0, lidos))
+            baos funciona como uma matriz de bytes */
             baos.write(bytes, 0, lidos);
         }
 
-        //Converte todos os caracteres em uma string
+        //Converte os bytes do objeto baos para string
         return new String(baos.toByteArray());
     }
 
