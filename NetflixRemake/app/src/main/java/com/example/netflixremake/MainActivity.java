@@ -13,16 +13,17 @@ import android.widget.TextView;
 
 import com.example.netflixremake.model.Category;
 import com.example.netflixremake.model.Movie;
-import com.example.netflixremake.util.JsonDownloadTask;
+import com.example.netflixremake.util.CategoryTask;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryTask.CategoryLoader {
 
     private RecyclerView rvMain;
+    private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +32,29 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<Category> categories = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Category category = new Category("Category " + i);
 
-                List<Movie> movies = new ArrayList<>();
-                for (int j = 0; j < 30; j++) {
-                    Movie movie = new Movie();
-                    //movie.setCoverUrl(R.drawable.movie_4);
-                    movies.add(movie);
-                }
-
-                category.setMovies(movies);
-                categories.add(category);
-
-            }
-
-            rvMain = findViewById(R.id.rv_view_main);
-            rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-            rvMain.setAdapter(new MainAdapter(categories));
+        rvMain = findViewById(R.id.rv_view_main);
+        rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mainAdapter = new MainAdapter(categories);
+        rvMain.setAdapter(mainAdapter);
 
 
-            //Executa a progressBar, o metodo execute tem como parametro o link que se encontra o arquivos json
-            new JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home");
+        //o parametro this significa que a intancia MainActivity esta sendo passada como parametro e vai implementar o categoryLoader.onResult, uma vez que a
+        // categoryLoader se comporta como uma variavel que armazena objetos que implementam os seus metodos.
+        CategoryTask categoryTask = new CategoryTask(this);
+        categoryTask.setCategoryLoader(this);
+        //Executa a progressBar, o metodo execute tem como parametro o link que se encontra o arquivos json
+        categoryTask.execute("https://tiagoaguiar.co/api/netflix/home");
 
+
+        }
+
+        //Passa as categorias novas para o MainAdapter
+        @Override
+        public void onResult(List<Category> categories) {
+            mainAdapter.setCategories(categories);
+            //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no mainAdapter
+            mainAdapter.notifyDataSetChanged();
         }
 
         private class CategoryHolder extends RecyclerView.ViewHolder {
@@ -104,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int getItemCount() {
                 return categories.size();
+            }
+
+            public void setCategories(List<Category> categories) {
+
+                //Limpa a categoria atual, o mainAdapter.notifyDataSetChanged() só funcionara se usar o clear() para limpar a referencia da lista passada
+                //caso contrário dara um erro.
+                this.categories.clear();
+                //Adiciona todas as novas categorias com addAll
+                this.categories.addAll(categories);
             }
         }
 

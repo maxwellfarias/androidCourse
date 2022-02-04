@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:xmls="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
     xmls:showIn="@layout/category_item">
 
     <!--  xmlns:xmls="http://schemas.android.com/tools" permite que seja
