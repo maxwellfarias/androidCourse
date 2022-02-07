@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.netflixremake.model.Category;
 import com.example.netflixremake.model.Movie;
 import com.example.netflixremake.util.CategoryTask;
+import com.example.netflixremake.util.ImageDownloadTask;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,8 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CategoryTask.CategoryLoader {
 
-    private RecyclerView rvMain;
-    private MainAdapter mainAdapter;
+     private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
 
         List<Category> categories = new ArrayList<>();
 
-        rvMain = findViewById(R.id.rv_view_main);
+        RecyclerView rvMain = findViewById(R.id.rv_view_main);
         rvMain.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         mainAdapter = new MainAdapter(categories);
         rvMain.setAdapter(mainAdapter);
@@ -47,116 +47,116 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
         categoryTask.execute("https://tiagoaguiar.co/api/netflix/home");
 
 
+    }
+
+    //Passa as categorias novas para o MainAdapter
+    @Override
+    public void onResult(List<Category> categories) {
+        mainAdapter.setCategories(categories);
+        //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no mainAdapter
+        mainAdapter.notifyDataSetChanged();
+    }
+
+    private class CategoryHolder extends RecyclerView.ViewHolder {
+        private TextView textViewTitle;
+        private RecyclerView recyclerViewMovie;
+
+        public TextView getTextViewTitle() {
+            return textViewTitle;
         }
 
-        //Passa as categorias novas para o MainAdapter
+        public RecyclerView getRecyclerViewMovie() {
+            return recyclerViewMovie;
+        }
+
+        public CategoryHolder(@NotNull View itemView) {
+            super(itemView);
+
+            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            recyclerViewMovie = itemView.findViewById(R.id.rv_movie);
+        }
+    }
+
+
+    private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
+        private List<Category> categories;
+
+        public MainAdapter(List<Category> categories) {
+            this.categories = categories;
+        }
+
+
+        @NonNull
+        @NotNull
         @Override
-        public void onResult(List<Category> categories) {
-            mainAdapter.setCategories(categories);
-            //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no mainAdapter
-            mainAdapter.notifyDataSetChanged();
+        public CategoryHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+            return new CategoryHolder(getLayoutInflater().inflate(R.layout.category_item, parent, false));
         }
 
-        private class CategoryHolder extends RecyclerView.ViewHolder {
-            private TextView textViewTitle;
-            private RecyclerView recyclerViewMovie;
+        @Override
+        public void onBindViewHolder(@NonNull @NotNull CategoryHolder holder, int position) {
+            Category category = categories.get(position);
+            holder.getTextViewTitle().setText(category.getName());
+            holder.getRecyclerViewMovie().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
+            holder.getRecyclerViewMovie().setAdapter(new MovieAdapter(category.getMovies()));
 
-            public TextView getTextViewTitle() {
-                return textViewTitle;
-            }
+        }
 
-            public RecyclerView getRecyclerViewMovie() {
-                return recyclerViewMovie;
-            }
+        @Override
+        public int getItemCount() {
+            return categories.size();
+        }
 
-            public CategoryHolder(@NotNull View itemView) {
-                super(itemView);
+        public void setCategories(List<Category> categories) {
 
-                textViewTitle = itemView.findViewById(R.id.text_view_title);
-                recyclerViewMovie = itemView.findViewById(R.id.rv_movie);
-            }
+            //Limpa a categoria atual, o mainAdapter.notifyDataSetChanged() só funcionara se usar o clear() para limpar a referencia da lista passada
+            //caso contrário dara um erro.
+            this.categories.clear();
+            //Adiciona todas as novas categorias com addAll
+            this.categories.addAll(categories);
+        }
+    }
+
+    private class MovieHolder extends RecyclerView.ViewHolder {
+        private ImageView imageViewCover;
+
+        public ImageView getImageViewCover() {
+            return imageViewCover;
         }
 
 
-        private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
-            private List<Category> categories;
+        public MovieHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+            imageViewCover = itemView.findViewById(R.id.image_view_cover);
+        }
+    }
 
-            public MainAdapter(List<Category> categories) {
-                this.categories = categories;
-            }
+    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
 
+        private final List<Movie> movies;
 
-            @NonNull
-            @NotNull
-            @Override
-            public CategoryHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-                return new CategoryHolder(getLayoutInflater().inflate(R.layout.category_item, parent, false));
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull @NotNull CategoryHolder holder, int position) {
-                Category category = categories.get(position);
-                holder.getTextViewTitle().setText(category.getName());
-                holder.getRecyclerViewMovie().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
-                holder.getRecyclerViewMovie().setAdapter(new MovieAdapter(category.getMovies()));
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return categories.size();
-            }
-
-            public void setCategories(List<Category> categories) {
-
-                //Limpa a categoria atual, o mainAdapter.notifyDataSetChanged() só funcionara se usar o clear() para limpar a referencia da lista passada
-                //caso contrário dara um erro.
-                this.categories.clear();
-                //Adiciona todas as novas categorias com addAll
-                this.categories.addAll(categories);
-            }
+        private MovieAdapter(List<Movie> movies) {
+            this.movies = movies;
         }
 
-        private class MovieHolder extends RecyclerView.ViewHolder {
-            private ImageView imageViewCover;
-
-            public ImageView getImageViewCover() {
-                return imageViewCover;
-            }
-
-
-            public MovieHolder(@NonNull @NotNull View itemView) {
-                super(itemView);
-                 imageViewCover = itemView.findViewById(R.id.image_view_cover);
-            }
+        @NonNull
+        @NotNull
+        @Override
+        public MovieHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+            return new MovieHolder(getLayoutInflater().inflate(R.layout.movie_item, parent, false));
         }
 
-        private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
-
-            private final List<Movie> movies;
-
-            private MovieAdapter(List<Movie> movies) {
-                this.movies = movies;
-            }
-
-            @NonNull
-            @NotNull
-            @Override
-            public MovieHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-                return new MovieHolder(getLayoutInflater().inflate(R.layout.movie_item, parent, false));
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull @NotNull MovieHolder holder, int position) {
-                Movie movie = movies.get(position);
-               // holder.getImageViewCover().setImageResource(movie.getCoverUrl());
-            }
-
-            @Override
-            public int getItemCount() {
-                return movies.size();
-            }
+        @Override
+        public void onBindViewHolder(@NonNull @NotNull MovieHolder holder, int position) {
+            Movie movie = movies.get(position);
+            new ImageDownloadTask(holder.getImageViewCover()).execute(movie.getCoverUrl());
         }
+
+        @Override
+        public int getItemCount() {
+            return movies.size();
+        }
+    }
 
 
 }

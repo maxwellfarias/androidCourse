@@ -90,7 +90,7 @@ public class CategoryTask extends AsyncTask<String, Void, List<Category>> {
 
             //Toda requisicao dara um status code, geralmente quando o status code eh maior que 400 eh porque algo deu errado.
             int responseCode = urlConnection.getResponseCode();
-            if (responseCode > 400) {
+            if (responseCode >  400) {
                 throw new IOException("Erro na comunicacao do servidor");
             }
 
@@ -126,37 +126,37 @@ public class CategoryTask extends AsyncTask<String, Void, List<Category>> {
             e.printStackTrace();
         }
 
-        //Quando o metodo doInBackground foi sobreescrito, aparece automaticamente esse retorno, nao sei muito bem o que faz ainda
+        //Quando o metodo doInBackground foi sobreescrito, aparece automaticamente esse retorno, significando que nao teve nenhum retorno anterior
         return null;
     }
-// metodo que converte string em um objeto json
-private List<Category> getCategories(JSONObject json) throws JSONException {
-    List<Category> categories = new ArrayList<>();
+    // metodo que converte string em um objeto json
+    private List<Category> getCategories(JSONObject json) throws JSONException {
+        List<Category> categories = new ArrayList<>();
 
-    //Cria um objeto array no qual possui objtos json
-    JSONArray categoryArray = json.getJSONArray("category");
-    for (int i = 0; i < categoryArray.length(); i++) {
-        JSONObject category = categoryArray.getJSONObject(i);
-        String title = category.getString("title");
+        //Cria um objeto array no qual possui objtos json
+        JSONArray categoryArray = json.getJSONArray("category");
+        for (int i = 0; i < categoryArray.length(); i++) {
+            JSONObject category = categoryArray.getJSONObject(i);
+            String title = category.getString("title");
 
-        JSONArray movieArray = category.getJSONArray("movie");
-        List<Movie> movies = new ArrayList<>();
-        for (int j = 0; j < movieArray.length(); j++) {
-            JSONObject movieJson = movieArray.getJSONObject(j);
+            JSONArray movieArray = category.getJSONArray("movie");
+            List<Movie> movies = new ArrayList<>();
+            for (int j = 0; j < movieArray.length(); j++) {
+                JSONObject movieJson = movieArray.getJSONObject(j);
 
-            String cover_url = movieJson.getString("cover_url");
-            Movie movieObj = new Movie();
-            movieObj.setCoverUrl(cover_url);
-            movies.add(movieObj);
+                String cover_url = movieJson.getString("cover_url");
+                Movie movieObj = new Movie();
+                movieObj.setCoverUrl(cover_url);
+                movies.add(movieObj);
+            }
+
+            Category categoryObj = new Category(title);
+            categoryObj.setMovies(movies);
+
+            categories.add(categoryObj);
         }
-
-        Category categoryObj = new Category(title);
-        categoryObj.setMovies(movies);
-
-        categories.add(categoryObj);
+        return categories;
     }
-    return categories;
-}
 
     //Transformando todos os bytes em caracteres no formato de string
     private String toString(InputStream is) throws IOException {
