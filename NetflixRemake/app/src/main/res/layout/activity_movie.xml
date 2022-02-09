@@ -80,7 +80,6 @@ Se preferir deixar a RecyclerView presa, basta colocar o constraint layout como 
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Super Heroes çkasjfsamdflkçjasdklfjion klfsskldajfs afdasndf sakdjfs,danfmsadjfklçasjdfiwenfs.a, m klsjadfj asiodmnsadfm,nasdfjiaosasdfasdfsadf fjsdklç fklsçfg fsdgsdafasd fsadf"
         app:layout_constraintTop_toBottomOf="@+id/image_view_cover_play"/>
 
     <TextView
@@ -97,7 +96,6 @@ Se preferir deixar a RecyclerView presa, basta colocar o constraint layout como 
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Super Heroes çkasjfsamdflkçjasdklfjion klfsskldajfs afdasndf sakdjfs,danfmsadjfklçasjdfiwenfs.a, m klsjadfj asiodmnsadfm,nasdfjiaosasdfasdfsadf fjsdklç fklsçfg fsdgsdafasd fsadf"
         app:layout_constraintTop_toBottomOf="@+id/text_view_desc"/>
 
 <!--  android:textAllCaps="true" -> Deixa todas as letras maiusculas-->

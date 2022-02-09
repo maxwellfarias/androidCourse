@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CategoryTask.CategoryLoader {
 
-     private MainAdapter mainAdapter;
+    private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
         public MovieHolder(@NonNull @NotNull View itemView, onItemClickListener onItemClickListener) {
             super(itemView);
             imageViewCover = itemView.findViewById(R.id.image_view_cover);
-            imageViewCover.setOnClickListener( view -> {
+            imageViewCover.setOnClickListener(view -> {
                 onItemClickListener.onClick(getAdapterPosition());
             });
         }
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
         @NotNull
         @Override
         public MovieHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-            View view =  getLayoutInflater().inflate(R.layout.movie_item, parent, false);
+            View view = getLayoutInflater().inflate(R.layout.movie_item, parent, false);
             //Esse metodo deve retornar um objeto MovieHolder que tem como parametro a view do item da recyclerView e um objeto que implemente
             //o metodo public void onClick(int position), foi passado a chave 'this' pois esse mesmo objeto MovieAdapter implementa esse metodo.
             //Esse retorno sera usado como construtor da MovieHolder.
@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
         @Override
         public void onBindViewHolder(@NonNull @NotNull MovieHolder holder, int position) {
             Movie movie = movies.get(position);
+            //Adiciona as imagens das capas dos filmes.
             new ImageDownloadTask(holder.getImageViewCover()).execute(movie.getCoverUrl());
         }
 
@@ -168,9 +169,11 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
 
         @Override
         public void onClick(int position) {
-        Intent intent = new Intent(MainActivity.this, MovieActivity.class);
-        intent.putExtra("id", movies.get(position).getId());
-        startActivity(intent);
+            if (movies.get(position).getId() <= 3) {
+                Intent intent = new Intent(MainActivity.this, MovieActivity.class);
+                intent.putExtra("id", movies.get(position).getId());
+                startActivity(intent);
+            }
         }
     }
 
