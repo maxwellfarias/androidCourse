@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,13 +18,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.netflixremake.model.Movie;
+import com.example.netflixremake.model.MovieDetail;
+import com.example.netflixremake.util.MovieDetailTask;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements MovieDetailTask.MovieDetailLoader {
     RecyclerView rvSimilar;
 
     @Override
@@ -73,6 +76,22 @@ public class MovieActivity extends AppCompatActivity {
         rvSimilar = findViewById(R.id.rv_similar);
         rvSimilar.setAdapter(new MovieSimilarAdapter(movies));
         rvSimilar.setLayoutManager(new GridLayoutManager(this, 3));
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            int id = extras.getInt("id");
+            MovieDetailTask movieDetailTask = new MovieDetailTask(this);
+            movieDetailTask.setMovieDetailLoader(this);
+            movieDetailTask.execute("https://tiagoaguiar.co/api/netflix/" + id);
+        }
+
+
+    }
+
+    @Override
+    public void onResult(MovieDetail movieDetail) {
+//        Log.i("test", movieDetail.toString());
+        MovieDetail movie = movieDetail;
     }
 
     private class MovieSimilarHolder extends  RecyclerView.ViewHolder {

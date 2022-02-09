@@ -52,6 +52,7 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
 
             MovieDetail movieDetail = getMovieDetail(new JSONObject(jsonAsString));
             in.close();
+            return movieDetail;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -93,13 +94,16 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
         return new MovieDetail(movie, movies);
     }
 
-    private String toString(BufferedInputStream in) throws IOException {
+    private String toString(InputStream in) throws IOException {
         byte[] bytes = new byte[1024];
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int lidos;
-        while((lidos = in.read()) > 0)
+        while((lidos = in.read(bytes)) > 0)
             baos.write(bytes, 0, lidos);
         return new String(baos.toByteArray());
+
+
+
     }
 
     @Override

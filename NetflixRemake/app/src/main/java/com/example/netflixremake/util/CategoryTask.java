@@ -100,7 +100,7 @@ public class CategoryTask extends AsyncTask<String, Void, List<Category>> {
             InputStream inputStream = urlConnection.getInputStream();
             //FAZENDO A CONVERSAO DE STRING PARA STREAM:
             //Permite pegar e alocar espacos na memoria, para ser possivel manipular o stream em formato de buffer
-            BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedInputStream in = new BufferedInputStream(inputStream);
 
             String jsonAsString = toString(in);
 
