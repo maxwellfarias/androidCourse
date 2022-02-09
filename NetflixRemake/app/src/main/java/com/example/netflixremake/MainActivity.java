@@ -52,7 +52,10 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
     @Override
     public void onResult(List<Category> categories) {
         mainAdapter.setCategories(categories);
-        //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no mainAdapter
+        //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no mainAdapter, em tese, o que acontece debaixo dos panos eh:
+        //Quando a lista de filmes eh passado como parametro no construtor, o mainAdapter fica com a referencia dessa lista, se ela for modificada posteiormente
+        //como eh este caso, o mainAdapter ainda permanecera "segunrando" essa referencia e nao sabera qual executar. notifyDataSetChanged "liberara" a antiga
+        //referencia e passara a referencia a nova lista.
         mainAdapter.notifyDataSetChanged();
     }
 

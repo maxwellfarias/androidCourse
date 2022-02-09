@@ -3,14 +3,13 @@ package com.example.netflixremake;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.netflixremake.model.Movie;
 import com.example.netflixremake.model.MovieDetail;
+import com.example.netflixremake.util.ImageDownloadTask;
 import com.example.netflixremake.util.MovieDetailTask;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,11 +28,21 @@ import java.util.List;
 
 public class MovieActivity extends AppCompatActivity implements MovieDetailTask.MovieDetailLoader {
     RecyclerView rvSimilar;
+    MovieSimilarAdapter movieSimilarAdapter;
+    TextView textViewTitleCover;
+    TextView textViewDesc;
+    TextView textViewCast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+
+        rvSimilar = findViewById(R.id.rv_similar);
+        textViewTitleCover = findViewById(R.id.text_view_title_cover);
+        textViewCast = findViewById(R.id.text_view_cast);
+        textViewDesc = findViewById(R.id.text_view_desc);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         /*Foi necessario colocar manualmente o import: import android.widget.Toolbar;
@@ -65,17 +75,13 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
             //Acessa o ImageView do movieItem.xlm e troca a imagem de fundo.
             ((ImageView)findViewById(R.id.image_view_cover_play)).setImageDrawable(drawable);
         }
-
+        //Eh necessario passar uma lista de filmes, mesmo que vazia como construtor, porque o metodo getItemCount() da MovieSimilarAdapter sera chamado antes
+        //de ser inserida a lista de filmes definitiva.
         List<Movie> movies = new ArrayList<>();
-        for (int i=0; i<30; i++){
-          Movie movie = new Movie();
-         // movie.setCoverUrl(R.drawable.movie_4);
-          movies.add(movie);
-        }
-
-        rvSimilar = findViewById(R.id.rv_similar);
-        rvSimilar.setAdapter(new MovieSimilarAdapter(movies));
+        movieSimilarAdapter = new MovieSimilarAdapter(movies);
+        rvSimilar.setAdapter(movieSimilarAdapter);
         rvSimilar.setLayoutManager(new GridLayoutManager(this, 3));
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -90,12 +96,23 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
 
     @Override
     public void onResult(MovieDetail movieDetail) {
-//        Log.i("test", movieDetail.toString());
-        MovieDetail movie = movieDetail;
+        textViewDesc.setText(movieDetail.getMovie().getDesc());
+        textViewCast.setText(movieDetail.getMovie().getCast());
+        textViewTitleCover.setText(movieDetail.getMovie().getTitle());
+
+        movieSimilarAdapter.setMovies(movieDetail.getMovieSimilar());
+        //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no movieSimilarAdapter
+        movieSimilarAdapter.notifyDataSetChanged();
+
     }
 
     private class MovieSimilarHolder extends  RecyclerView.ViewHolder {
-        ImageView imageViewSimilarItem;
+       private ImageView imageViewSimilarItem;
+
+        public ImageView getImageViewSimilarItem() {
+            return imageViewSimilarItem;
+        }
+
         public MovieSimilarHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
@@ -105,11 +122,11 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
 
     private class MovieSimilarAdapter extends RecyclerView.Adapter<MovieSimilarHolder> {
 
+        private List<Movie> movies;
+
         public MovieSimilarAdapter(List<Movie> movies) {
             this.movies = movies;
         }
-
-        private List<Movie> movies;
 
 
         @NonNull
@@ -121,14 +138,20 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
 
         @Override
         public void onBindViewHolder(@NonNull @NotNull MovieSimilarHolder holder, int position) {
-            Movie movie = movies.get(position);
+          Movie movie = movies.get(position);
+          new ImageDownloadTask(holder.getImageViewSimilarItem()).execute(movie.getCoverUrl());
 
-          //  holder.imageViewSimilarItem.setImageResource(movie.getCoverUrl());
+
         }
 
         @Override
         public int getItemCount() {
             return movies.size();
+        }
+
+        public void setMovies(List<Movie> movies) {
+            this.movies.clear();
+            this.movies.addAll(movies);
         }
     }
 }
