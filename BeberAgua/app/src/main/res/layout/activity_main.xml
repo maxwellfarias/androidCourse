@@ -15,8 +15,9 @@
             android:id="@+id/time_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:headerBackground="@color/design_default_color_primary"
+            android:headerBackground="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -38,6 +39,7 @@
             android:onClick="clickNotify"
             android:id="@+id/btn_notify"
             android:layout_width="0dp"
+            android:background="@drawable/bg_button_background_accent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
@@ -45,6 +47,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:text="@string/btn_notify_text"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_edit_editMinutes" />

@@ -98,7 +98,7 @@ public class CategoryTask extends AsyncTask<String, Void, List<Category>> {
             toda a informação, nesse caso será convertido em string. Sera pego todos os bytes, le-los um por um e coloca-los em um array para devolver
             no formato de string*/
             InputStream inputStream = urlConnection.getInputStream();
-            //FAZENDO A CONVERSAO DE STRING PARA STREAM:
+
             //Permite pegar e alocar espacos na memoria, para ser possivel manipular o stream em formato de buffer
             BufferedInputStream in = new BufferedInputStream(inputStream);
 

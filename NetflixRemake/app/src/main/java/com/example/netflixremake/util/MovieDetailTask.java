@@ -28,6 +28,10 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
     private ProgressDialog dialog;
     private MovieDetailLoader movieDetailLoader;
 
+    public MovieDetailTask (Context context) {
+        this.context = new WeakReference<>(context);
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -36,9 +40,6 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
             dialog = ProgressDialog.show(context, "Carregando", "", true);
     }
 
-    public MovieDetailTask (Context context) {
-        this.context = new WeakReference<>(context);
-    }
     @Override
     protected MovieDetail doInBackground(String... params) {
 
@@ -46,7 +47,6 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
             URL url = new URL(params[0]);
             HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
-
             BufferedInputStream in = new BufferedInputStream(inputStream);
             String jsonAsString = toString (in);
 
@@ -101,9 +101,6 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
         while((lidos = in.read(bytes)) > 0)
             baos.write(bytes, 0, lidos);
         return new String(baos.toByteArray());
-
-
-
     }
 
     @Override
