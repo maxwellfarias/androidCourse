@@ -1,9 +1,11 @@
 package com.example.beberagua;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,30 +88,33 @@ public class MainActivity extends AppCompatActivity {
             //Confirm changes in db
             editor.apply();
 
+            /*Esse objeto foi criado a fim de colocar as informacoes da hora e minutos do vindos da marcacao do timerPicker, em seguida esse tempo sera convertido
+            em milisegundos*/
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
 
-
-                //REGISTRANDO O PRIMEIRO ALARME
-
+            //REGISTRANDO O PRIMEIRO ALARME
 
             //Criando a intencao
             Intent notificationIntent = new Intent(MainActivity.this, NotificationPublisher.class);
             //Adicionando as informacoes que serao mandadas para a NotificationPublisher
             notificationIntent.putExtra(NotificationPublisher.KEY_NOTIFICATION_ID, 1);
             notificationIntent.putExtra(NotificationPublisher.KEY_NOTIFICATION, "Hora de beber água");
-            //Criando o broadcast (que eh uma intencao pendente). Os broadcasts sao recursos de transmissao de dados em background-> context, requisicao
-            // ID (quem eh quem esta chamando), intencao (nesse caso uma intencao de notification), flag
-            // com um metodo de atualizacao, nesse caso foi colocado para ele atualizar caso seja chamado novamente
-            PendingIntent broadcast = PendingIntent.getBroadcast(MainActivity.this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            /*Criando o broadcast (que eh uma intencao pendente). Os broadcasts sao recursos de transmissao de dados em background-> context, requisicao
+             ID (quem eh quem esta chamando), intencao (nesse caso uma intencao de notification), flag
+             com um metodo de atualizacao, nesse caso FLAG_CANCEL_CURRENT o qual indica que se ja existir uma atual pendingItent, esta deve ser cancelada antes
+            de gerar uma nova*/
+            PendingIntent broadcast = PendingIntent.getBroadcast(MainActivity.this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
 
-            //Definindo o horario que sera chamado -> Pega o tempo atual mais o tempo em segundos que eh digitado na tela (o interval foi convertido de
-            // segundos para milisegundos)
-            long futureInMillis = SystemClock.elapsedRealtime() + (interval * 1000);
             //Pegando o alarme para manipula-lo
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            //Passando as configuracoes do alarme, nesse caso sera o tipo de tempo que ira despertar no celular com o tempo passado(ELAPSED_REALTIME_WAKEUP).
-            //, tempo no futuro em milisegundos
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, broadcast);
+            /*Configura as informacoes da repeticao em um horario "nao tao exato", essa repeticao acha o melhor horario para disparar a fim de nao sobrecarregar o
+            sitema do android.
+            * Parametros: AlarmManager.RTC_WAKEUP-> Manda acordar o celular; hora de disparo em milisegundos; intervalo de disparo; Operacao em si*/
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval * 1000, broadcast);
+
 
         } else {
             //Se em outra parte do codigo for mudado a cor desse mesmo botao, sera conservado o drawble, e sera mudado somente a sua cor, nao mostrando mais

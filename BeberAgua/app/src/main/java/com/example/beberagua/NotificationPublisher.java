@@ -53,21 +53,21 @@ public class NotificationPublisher extends BroadcastReceiver {
                 .setTicker("Alerta")
                 //Evita cancelar de maneira automatica se nao apertar a notificacao
                 .setAutoCancel(false)
-                //?
+                //Adiciona a notificacao padrao
                 .setDefaults(Notification.DEFAULT_SOUND)
                 //Adiciona o item que sera exibido na notificacao
                 .setSmallIcon(R.mipmap.ic_launcher);
 
-                //Verifica se a versao do SDK do smartphone eh igual ou maior que a versao do android oreo
-                //As regras de notificacao a partir do android oreo mudaram, entao eh necessario seguir o codigo abaixo
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    String channelId = "YOUR_CHANNEL_ID";
-                    NotificationChannel channel =
-                            new NotificationChannel(channelId, "Channel", NotificationManager.IMPORTANCE_DEFAULT);
-                    manager.createNotificationChannel(channel);
-                    builder.setChannelId(channelId);
-                }
-
+        //Verifica se a versao do SDK do smartphone eh igual ou maior que a versao do android oreo
+        //As regras de notificacao a partir do android oreo mudaram, entao eh necessario seguir o codigo abaixo
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "YOUR_CHANNEL_ID";
+            NotificationChannel channel =
+                    new NotificationChannel(channelId, "Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
+        //Retorna uma notificacao construida
         return builder.build();
     }
 }
