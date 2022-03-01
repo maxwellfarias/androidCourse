@@ -24,7 +24,7 @@
             android:id="@+id/txt_edit_editMinutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:hint="@string/edit_text_interval_number"
             android:inputType="number"
@@ -36,14 +36,13 @@
             app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
         <Button
-            android:onClick="clickNotify"
             android:id="@+id/btn_notify"
             android:layout_width="0dp"
             android:background="@drawable/bg_button_background_accent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:text="@string/btn_notify_text"
@@ -51,6 +50,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_edit_editMinutes" />
+
+        <Button
+            android:id="@+id/btn_broadcast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_notify"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_button_background"
+            android:text="@string/broadcastTest"
+            android:textColor="@android:color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

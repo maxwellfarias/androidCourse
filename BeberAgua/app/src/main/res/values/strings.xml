@@ -4,4 +4,8 @@
     <string name="btn_notify_text">Notify</string>
     <string name="msg_error">Enter the range</string>
     <string name="pause">Pause</string>
+    <string name="zero_value">O campo deve ser maior que zero</string>
+    <string name="notified">Alarme ativado</string>
+    <string name="alarm_off">Alarme desativado</string>
+    <string name="broadcastTest">Broadcast Test</string>
 </resources>
