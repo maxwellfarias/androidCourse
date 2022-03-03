@@ -104,12 +104,12 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
 
 //WHEN
     val user = "motorola"
-    when (user) {
+    when (user) { //leia-se: Quando o user for "samsung" ou "motorola" imprima...
         "samsung", "motorola" -> println("Android")
         else -> println("iPhone")
     }
 
-    val number = 3;
+    val number = 3; //leia-se: Quando o number for 1 retorne "one"...
     val textNumber =  when (number) {
         1 -> "one"
         2 -> "two"
@@ -119,7 +119,7 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     println(textNumber)
 
     val hour = 9
-    val time = when(hour) {
+    val time = when(hour) { //leia-se: Quando hour estiver entre 6..12 retorne "Manha"...
         in 6..12 -> "Manha"
         in 13..17 -> "Tarde"
         in 18..24 -> "Noite"
