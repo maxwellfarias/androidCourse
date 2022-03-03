@@ -1,0 +1,5 @@
+As requisições para um servidor a fim de pegar as imagens deve ser requisições assicronas, ou seja, em uma Thread diferente da principal.
+
+O trabalho de preparar a interface gráfica com dados fakes chama-se mokar.
+
+Estudar sobre lançadores de erros!
