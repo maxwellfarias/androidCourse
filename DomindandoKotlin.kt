@@ -1,3 +1,10 @@
+import kotlin.math.abs
+
+/** PONTOS PARA REVISAR:
+*
+*     //Passando funcoes genericas como parametro
+* */
+
 "%.4f".format(2.54324)
 val constant = 10 // declarando uma constante
 //const val contant2 = 100 //Define uma constante fora do bloco da funcao de modo que possa ser usado em outras partes do sistema
@@ -104,12 +111,12 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
 
 //WHEN
     val user = "motorola"
-    when (user) { //leia-se: Quando o user for "samsung" ou "motorola" imprima...
+    when (user) {
         "samsung", "motorola" -> println("Android")
         else -> println("iPhone")
     }
 
-    val number = 3; //leia-se: Quando o number for 1 retorne "one"...
+    val number = 3;
     val textNumber =  when (number) {
         1 -> "one"
         2 -> "two"
@@ -119,7 +126,7 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     println(textNumber)
 
     val hour = 9
-    val time = when(hour) { //leia-se: Quando hour estiver entre 6..12 retorne "Manha"...
+    val time = when(hour) {
         in 6..12 -> "Manha"
         in 13..17 -> "Tarde"
         in 18..24 -> "Noite"
@@ -128,13 +135,13 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     println(time)
 
 //FUNCOES
-    fun discount (valor:Float, discount:Float = 10.00f):Float { //Pode ser colocado um valor padrao como parametro da funcao
-        return (valor - (valor*discount/100))
+    fun discount (value:Float, discount:Float = 10.00f):Float { //Pode ser colocado um value padrao como parametro da funcao
+        return (value - (value*discount/100))
     }
     println(discount(1000.toFloat(), 20f))
     println(discount(5000f))
-
-    fun multiplyDivide (x:Int, y:Int): Pair<Int, Int> { //Retornando um par de valores de uma funcao
+    //Retornando um par de valores de uma funcao
+    fun multiplyDivide (x:Int, y:Int): Pair<Int, Int> {
         return Pair(x*y, x/y)
     }
     println(multiplyDivide(10, 5))
@@ -143,7 +150,7 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     fun multiplyDivide2 (x:Int, y:Int) = Pair(x*y, x/y)
     println(multiplyDivide2(10, 5))
 
-    //Variavel recendo uma funcaot
+    //Variavel recendo uma funcao
     var newDiscount = ::discount
     println(newDiscount(1000f, 50f))
 
@@ -155,6 +162,25 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     }
     calculoGenerico(::add, 10, 5)
     calculoGenerico(::sub, 10, 2)
+//EVITANDO NULL POINTER
+    //Declarando variaveis que podem receber null -> Basta colocar o sinal de interrogacao apos a declarao do tipo de variavel
+    var errorCode:Int? = null
 
+    var text:String? = "Hello"
+        //!! Eh usando para desenvelopar a variavel
+    var msg:String = ""
+        //Como a variavel text pode ser null, eh necessario antes de usa-la, verificar se o valor eh null:
+    if(text != null)  msg = text + " World" //Verificacao feita de maneira semelhante o que era feita em Java
+    println("$msg !!!")
 
+        //Jeito Kotlin de verificar se uma variavel eh null:
+    var text2:String? = null
+    println(text2?.length?.plus(0)) """O sinal de interrogacao nesse caso faz com que as funcoes somente sejam executadas se os valores forem diferentes
+        de null e caso sejam null nao dara um erro no programa"""
 
+    //Ao usar o let, o bloco de codigo somente sera executado se a variavel for diferente de nulla, semelhando a verificacao por meio do if
+    text2?.let {
+        println(it.length.plus(0)) //it seria um variavel interna que faz referencia ao contexto text2
+    }
+    //Eh possivel fazer com que um valor padrao seja retornado a nossa variavel seja nulla. Basta usar o operador elvis-> ' ?: '
+    println(text2?.length?: 10) //Caso text2 seja nullo, o valor retornado sera 10
