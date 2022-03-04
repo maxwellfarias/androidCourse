@@ -1,5 +1,4 @@
 Anotações sobre as instruções do Git
-TK:max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
 
 
 Branch - Versoes diferentes do sistema
