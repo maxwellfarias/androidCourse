@@ -1,9 +1,15 @@
 import kotlin.math.abs
 
-/** PONTOS PARA REVISAR:
-*
-*     //Passando funcoes genericas como parametro
-* */
+
+
+/*
+PONTOS PARA REVISAR:
+
+
+    //Passando funcoes genericas como parametro
+*/
+
+
 
 "%.4f".format(2.54324)
 val constant = 10 // declarando uma constante
@@ -15,7 +21,7 @@ val char = 99
 char.toChar() //Convertendo numeros em caracteres
 "Text com a letra ${char.toChar()}" //Adicionando variaveis e expressoes dentro do texto
 val texts = """
-    Adionando multiplas linhas de 
+    Adionando multiplas linhas de
     texto em uma constante
 """.trimIndent() //trimIndent faz com que o texto tenha os espacos em branco a mais
 
@@ -166,11 +172,11 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     //Declarando variaveis que podem receber null -> Basta colocar o sinal de interrogacao apos a declarao do tipo de variavel
     var errorCode:Int? = null
 
-    var text:String? = "Hello"
+    var textTest:String? = "Hello"
         //!! Eh usando para desenvelopar a variavel
     var msg:String = ""
         //Como a variavel text pode ser null, eh necessario antes de usa-la, verificar se o valor eh null:
-    if(text != null)  msg = text + " World" //Verificacao feita de maneira semelhante o que era feita em Java
+    if(textTest != null)  msg = "${textTest} World" //Verificacao feita de maneira semelhante o que era feita em Java
     println("$msg !!!")
 
         //Jeito Kotlin de verificar se uma variavel eh null:
@@ -178,9 +184,90 @@ val qualquerValor: Any = "String" //Pode receber qualquer tipo de valor
     println(text2?.length?.plus(0)) """O sinal de interrogacao nesse caso faz com que as funcoes somente sejam executadas se os valores forem diferentes
         de null e caso sejam null nao dara um erro no programa"""
 
-    //Ao usar o let, o bloco de codigo somente sera executado se a variavel for diferente de nulla, semelhando a verificacao por meio do if
+    //Ao usar o let, o bloco de codigo somente sera executado se a variavel for diferente de nulla, semelhante a verificacao por meio do if
     text2?.let {
         println(it.length.plus(0)) //it seria um variavel interna que faz referencia ao contexto text2
     }
     //Eh possivel fazer com que um valor padrao seja retornado a nossa variavel seja nulla. Basta usar o operador elvis-> ' ?: '
     println(text2?.length?: 10) //Caso text2 seja nullo, o valor retornado sera 10
+
+//ARRAYS DE LIST
+    //Arrays
+val numbers = arrayOf(1,2,3)
+numbers.forEach{println(it)}
+numbers[2] = 10
+numbers.forEach{println(it)}
+
+    //Usando os tipos primitivos de arrays consomem menos memoria do que os tipos gerericos de arrays
+    val numbersPrimitives = intArrayOf(1,2,3,4)
+
+    //Listas
+    var texts = listOf<String>("Ola", "mundo", "list") //<String> poderia ser omitida e o prgrama iria inferir que seria uma lista de strings
+    var textImplicit = listOf("Lista", "de", "Strings", "implicita")
+    println(textImplicit[0])
+    println(textImplicit)
+
+    //Listas mutaveis
+    var listMutable = mutableListOf("Primeira", "Lista", "Mutavel")
+    listMutable.add("Primeira adicao")
+    listMutable.add("Segunda adicao")
+    listMutable += "Terceira adicao"
+    listMutable.isEmpty()
+    listMutable.size
+    listMutable.first()
+    listMutable.last()
+    listMutable.joinToString(":") //Gera uma String com todos os elementos juntos por uma determinada string
+    listMutable.slice(1..3) //Gera uma substring de acordo com os seu indice
+    listMutable.contains("Mutavel")
+    listMutable.remove("Primeira")
+    listMutable.sort() //Ordena por ordem alfabetica
+
+    for (item in listMutable) println(item)
+    for ((index, item) in listMutable.withIndex()) println("$index, $item") //withIndex retorna um par de index e valor
+
+    //Listas com valores nullo
+    var ListaDeNullos:List<Int?> = listOf(1,2,3, null)
+    var ListaDeNulos2:List<Int>? = null
+
+    //Map eh um conjunto de chaves e valores, ele pode ser imutavel ou mutavel
+        //Imutavel
+    val products = mapOf(
+        "Apple" to "IOS",
+        "Motorola" to "Android"
+    )
+
+    products["Apple"]
+    products.isEmpty()
+    products.size
+
+        //Mutavel
+    var users = mutableMapOf(
+        "user1" to "Maxwell",
+        "user2" to "Danielle"
+    )
+    users.put("user3", "Eva") //Adicionando elemento
+    users.put("user2",  "Mahiara") // subsecreve o valor que esta contido na chave referenciada
+    //Casa chave e elemento desse mapa possui um hashcode, devido a isso foi possivel sobreescrever os elementos devido ao seu identificador unico
+        for(hashCodeDaChave in users.keys) println(hashCodeDaChave.hashCode())
+
+    val user4 = mapOf("user4" to "Liko")
+    users += user4 //Outra maneira de adicionar elemento
+    users
+    users.remove("user1") //remove de acordo com a chave
+    for (key in users.keys) println(key) // Retorna uma 'lista' de chaves
+
+    //SET eh uma colecao semelhante a uma list, mas que nao aceita elementos repetidos
+    val otherNames = setOf("Maxwell", "Danielle", "Eva", "Maxwell")
+    println(otherNames)
+    val array = arrayOf(1,2,3,3,4)
+    var fromArray = mutableSetOf(*array) //Eh necessário colocar * para pegar o ponteiro do array?
+    fromArray.contains(3)
+    2 in fromArray
+    fromArray.add(5)
+    fromArray.remove(1)
+    fromArray
+
+
+
+
+
