@@ -267,7 +267,24 @@ numbers.forEach{println(it)}
     fromArray.remove(1)
     fromArray
 
+//Trabalhando com lamdas
+ val sum: (Int, Int) -> Int = {a:Int, b:Int -> Int
+        a+b}
+    fun sub (a:Int, b:Int) = a-b
+    fun generic (a:Int, b:Int, function: (Int, Int) -> Int) {
+        println(function(a,b))
+}
+    generic(10,15, sum)
+    generic(20,10, ::sub)
+    generic(10, 5) {a, b ->
+    a*b
+    }
+//Nao precisa dar um retorno porque ele saber a nossa expressao lambda espera um retorno
 
+    var square: (Int) -> Int = {
+        it*it
+    }
+    square(4)
 
 
 
