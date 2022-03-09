@@ -267,24 +267,58 @@ numbers.forEach{println(it)}
     fromArray.remove(1)
     fromArray
 
-//Trabalhando com lamdas
- val sum: (Int, Int) -> Int = {a:Int, b:Int -> Int
-        a+b}
-    fun sub (a:Int, b:Int) = a-b
-    fun generic (a:Int, b:Int, function: (Int, Int) -> Int) {
-        println(function(a,b))
-}
-    generic(10,15, sum)
-    generic(20,10, ::sub)
-    generic(10, 5) {a, b ->
-    a*b
+//FORMAS DE USAR FUNCAO LAMBDA
+    var lambda: () -> Unit = {
+        println("Hi Lambda")
     }
-//Nao precisa dar um retorno porque ele saber a nossa expressao lambda espera um retorno
+    lambda()
 
-    var square: (Int) -> Int = {
-        it*it
+    var fLambda: (Int) -> Unit = { a: Int -> println("Teste¹ $a") }
+    fLambda(10)
+
+    fLambda = {println("Teste² $it")}
+    fLambda(11)
+
+    fLambda = { a:Int -> Unit
+        println("Teste³ $a")}
+    fLambda(12)
+
+    //Usando lambdas em funcoes de esperam uma outra funcao como argumento
+    fun lambdaCalc (x:Int, y:Int,  function: (Int, Int) -> Int) {
+        println(function(x,y))
     }
-    square(4)
+    lambdaCalc(10, 5) {x:Int, y:Int -> //Pode colocar o tipo da variavel ou omiti-la como no caso abaixo
+        x/y //Nao eh necessario dar um retorno, porque eh implicito que uma funcao de lambda espera um retorno
+    }
+    lambdaCalc(10, 5) {x, y ->
+        x*y
+    }
+    lambdaCalc(10, 5, Int::plus)
+
+    //Funcao dentro de uma variavel passada como argumento de outra funcao
+    var sumLambda: (Int, Int) -> Int =  { x, y -> x+y}
+    lambdaCalc(10,5, sumLambda)
+    fun sumLambda2 (x:Int, y:Int)  = x+y
+    lambdaCalc(10,5, ::sumLambda2) //Ao passar uma funcao como parametro eh necessario adicionar '::' antes do nome da funcao
+
+    //Exemplos de lambdas prontas do Kotlin
+    val listaDeTextos = listOf("Ola", "Mundo", "Hello", "World")
+    println(listaDeTextos.sorted()) //Ordena os elementos por ordem alfabetica
+    println(listaDeTextos.sortedWith(compareBy{
+        it.length //O labda eh expresso em uma expressao de comparacao que nesse caso eh comparado o tamanho dos elementos de acordo com a quantidade
+        //de letras de cada elemento da lista
+    }))
+    val arrayLambda = intArrayOf(1,2,3,4,5,6,7,8,9)
+    arrayLambda.forEach {
+       println(it*it)
+    }
+    arrayLambda.filter {
+        it%2==0 //Retorna uma lista contendo os elementos que atendem a condicao da funcao labda
+    }
+    arrayLambda.map{
+        it*2 // Retorna uma nova lista depois que cada elemento da lista anterior foi modificado pela expressao escolhida, nesse caso cada elemento da lista
+        //sera multiplicado por 2   
+    }
 
 
 
