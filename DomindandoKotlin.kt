@@ -319,6 +319,144 @@ numbers.forEach{println(it)}
         it*2 // Retorna uma nova lista depois que cada elemento da lista anterior foi modificado pela expressao escolhida, nesse caso cada elemento da lista
         //sera multiplicado por 2   
     }
+    
+    //Classes e propriedades de acesso
+    //class NomeDaClasse (variaveis do construtor) {...Segue um modelo semelhante ao java}
+    class User (var name:String, var lastName:String, var password:Int) {
+       val fullName
+            get() = "$name $lastName" //Esse trecho de codigo aparetemente atribui valor a ultima variavel declarada
 
+
+    }
+    var joao = User("Joao", "Farias", 21345)
+    println(joao.fullName)
+
+    var joao2 = joao
+    joao.password = 123
+    println(joao.password)
+    println(joao2.password)
+    println(joao === joao2) // === verifica se as duas variavel estao apontando para o mesmo endereco de memoria
+
+//DATA CLASS
+    //Ao atribuir uma classe como date class, essa classe passa a prossuir propriedades de setter, getter, hashcode, equals, toString
+    //Ou seja, tudo o que era construido na "unha" no java, com o kotlin esse procedimento ja eh incluido sem trabalho
+   data class Product (var name: String, var price: Double ) {
+
+            /*
+            * Todos os codigos abaixo passam a fazer parte da classe quando se atribui a classe como um dataClass
+
+            override fun equals(other: Any?): Boolean {
+            if (other === this) return true
+            else if (other == null) return false
+            else if (javaClass != other.javaClass) return false
+
+            var obj = other as Product //converte o objeto other para o Product e o atribui para a variavel obj
+            //Verifica se os atributor de other sao iguais aos atributos do construtor Product
+            if (name != obj.name) return false
+            else if (price != obj.price) return false
+            return true
+        }
+
+        override fun toString(): String {
+            return "Product is (Name: $name, Price: $price)"
+        }*/
+    }
+    var iPhone = Product("iPhone", 2000.0)
+    var android = Product("Android", 3000.0)
+    //Quando da um println em um objeto, eh retornado o conteudo da funcao toString
+    println(iPhone)
+    iPhone == android
+    iPhone.equals(android)
+
+    //Tirando propriedades de dentro de um objeto
+    //Havera uma unica instancia durante toda a vida do projeto usando o padrao singleton
+    var (name, price) = iPhone
+    println("Nome: $name, Price: $price")
+
+    object Products {
+        var allProducts = mutableListOf<Product>()
+        fun addProduct(product: Product) {
+            allProducts.add(product)
+        }
+    }
+    Products.addProduct(iPhone)
+    Products.addProduct(android)
+    Products.allProducts.forEach(){
+        println(it.toString())
+    }
+
+    //O object pode ser usado em um padrao de chave e valor como o Json
+    object Keys {
+        const val ID = "id"
+        const val NAME = "ALTER_BRIDGE"
+    }
+
+//COMPANION
+    //private constructor -> Faz com que o construtor seja privado para que niguem instancie essa classe
+    //Contudo, o companion object permite que instancias seja criadas dentro da classe
+    class Button private constructor (val id: Int, color:Int ) {
+        //Tudo o que esta dentro do companion object eh compartilhado por todos os objetos desse contexto, ou seja
+        //Eh criado um "bloco estatico".
+        companion object { //Para que o companion object fique disponivel no java, eh necessario dar um nome: companion object NomeDoObject {...}
+            var currentId = 0
+            fun newButton (color: Int): Button {
+                currentId ++
+                return (Button(currentId, color))
+            }
+        }
+    }
+
+    val blue = Button.newButton(255)
+    println(blue.id)
+    val yellow = Button.newButton(0)
+    println(yellow.id)
+
+//INTERFACES
+    interface OnClickListener {
+        fun onClick ()
+        fun onLongClick()
+    }
+    //Criando um objeto de inteface anonima
+    /*No java, esta seria a forma de se criar um objeto de interface anonima:
+        OnClickListener listener = new OnClickListener () {
+            //Implementada os metodos...
+        }
+        Essa foi a forma que me fez ficar um pouco confuso quando vi isso em java achando que estava sendo criado uma instancia de uma interface
+        */
+    //Modo Kotlin de se criar um objeto de interface anonima
+    var listener = object: OnClickListener {
+        override fun onClick() {/*...*/}
+
+        override fun onLongClick(){/*...*/}
+    }
+    //Bloco de construcao init
+    class Screen {
+        var top = 0
+        var left = 0
+        var bottom: Int
+        var right:Int
+
+        //Bloco init eh inicializado quando a classe for instanciada
+        init {
+            bottom = 10
+            right = 10
+        }
+
+    }
+
+//SETTERS AND GETTERS DIRETO NA VARIAVEL
+    class Converter (var real:Double) {
+        var dolar: Double
+            get () { //Sempre que a variavel dolar for acessada, sera executada essas instrucoes
+                return real / 3.5
+            }
+            set (valor) { //Sempre que for atribuido uma valor para dolar, sera executada essas instrucoes
+                dolar = valor * 3.5
+            }
+    }
+    val converter = Converter(3.5)
+    println(converter.dolar)
+    converter.dolar = 10.0
+    println(converter.real) 
 
 
