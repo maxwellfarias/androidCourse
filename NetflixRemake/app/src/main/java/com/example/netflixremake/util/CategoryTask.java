@@ -26,7 +26,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 /*AsyncTask cria um processo paralelo para nao travar a Thread princiapal a fim de fazer requisicoes
 Os 3 parametros sao:
-    1 - String(url) -> Esse valor passado eh recebido no metodo 'protected List<Category> doInBackground(String... params)' e
+    1 - String(url) -> Esse valor eh passado recebido no metodo 'protected List<Category> doInBackground(String... params)' e
 passado na MainActivity --> new CategoryTask(this).execute("https://tiagoaguiar.co/api/netflix/home"); Momento que eh passado a string com a url para se f
 azer a requisicao .
     2 - um objeto Progress a fim de mostrar um carregamento na tela equanto eh feita a solicitacao dos dados para o servidor, nesse caso foi colocado o valor Void
