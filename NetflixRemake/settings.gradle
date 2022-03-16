@@ -1,2 +1,3 @@
 rootProject.name = "NetflixRemake"
 include ':app'
+
