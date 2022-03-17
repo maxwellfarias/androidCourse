@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
 
         @Override
         public void onBindViewHolder(@NonNull @NotNull CategoryHolder holder, int position) {
+            Log.i("test", "oBind_Main_Adapter "+position);
             Category category = categories.get(position);
             holder.getTextViewTitle().setText(category.getName());
             holder.getRecyclerViewMovie().setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
@@ -127,16 +129,23 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
         }
 
 
-        public MovieHolder(@NonNull @NotNull View itemView, onItemClickListener onItemClickListener) {
+        public MovieHolder(@NonNull @NotNull View itemView, List<Movie> movies) {
             super(itemView);
+
             imageViewCover = itemView.findViewById(R.id.image_view_cover);
             imageViewCover.setOnClickListener(view -> {
-                onItemClickListener.onClick(getAdapterPosition());
+                if (movies.get(getAdapterPosition()).getId() <= 3) {
+                    Intent intent = new Intent(MainActivity.this, MovieActivity.class);
+                    intent.putExtra("id", movies.get(getAdapterPosition()).getId());
+                    startActivity(intent);
+                    Log.i("test", "MovieHolder "+getAdapterPosition());
+                }
+
             });
         }
     }
 
-    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> implements onItemClickListener {
+    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
 
         private final List<Movie> movies;
 
@@ -152,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
             //Esse metodo deve retornar um objeto MovieHolder que tem como parametro a view do item da recyclerView e um objeto que implemente
             //o metodo public void onClick(int position), foi passado a chave 'this' pois esse mesmo objeto MovieAdapter implementa esse metodo.
             //Esse retorno sera usado como construtor da MovieHolder.
-            return new MovieHolder(view, this);
+            return new MovieHolder(view, movies);
         }
 
         @Override
@@ -160,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
             Movie movie = movies.get(position);
             //Adiciona as imagens das capas dos filmes.
             new ImageDownloadTask(holder.getImageViewCover()).execute(movie.getCoverUrl());
+            Log.i("test", "onBind_Movie_Adapter position: "+position);
         }
 
         @Override
@@ -167,18 +177,9 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
             return movies.size();
         }
 
-        @Override
+
         public void onClick(int position) {
-            if (movies.get(position).getId() <= 3) {
-                Intent intent = new Intent(MainActivity.this, MovieActivity.class);
-                intent.putExtra("id", movies.get(position).getId());
-                startActivity(intent);
-            }
+
         }
     }
-
-    interface onItemClickListener {
-        void onClick(int position);
-    }
-
 }
