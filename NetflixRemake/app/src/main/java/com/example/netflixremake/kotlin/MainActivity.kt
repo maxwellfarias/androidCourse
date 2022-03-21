@@ -80,17 +80,30 @@ class MainActivity : AppCompatActivity()  {
 
     }
 
-    private class MovieHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class MovieHolder (itemView: View, val onClick: ((Int) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
+        //((Int) -> Unit)?, '?' foi colocada que aceita ou nao null, pois a interface pode ou nao ser implementada
         fun bind (movie: Movie) {
             ImageDownloadTask(itemView.image_view_cover)
                 .execute(movie.coverUrl)
-            itemView.image_view_cover.setOnClickListener {}
+            itemView.image_view_cover.setOnClickListener {
+                onClick?.invoke(adapterPosition) //O metodo invoca a funcao
+            }
         }
     }
 
     private inner class MovieAdapter (val movies: List<Movie>): RecyclerView.Adapter<MovieHolder> () {
+        //Sera criado uma variavel que recebe uma funcao, esta sera passado como parametro para MovieHolder
+        val onClick: ((Int) -> Unit)? = { position ->
+            if(movies[position].id <= 3) {
+                val intent = Intent(this@MainActivity, MovieActivity::class.java) //MovieActivity::class.java eh como se fosse MovieActivity.java
+                intent.putExtra("id", movies[position].id)
+                startActivity(intent)
+            }
+
+        }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-            return MovieHolder(layoutInflater.inflate(R.layout.movie_item, parent, false))
+            return MovieHolder(layoutInflater.inflate(R.layout.movie_item, parent, false),
+            onClick)
         }
 
         override fun onBindViewHolder(holder: MovieHolder, position: Int) {
