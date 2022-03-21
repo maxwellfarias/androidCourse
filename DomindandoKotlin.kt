@@ -321,4 +321,225 @@ numbers.forEach{println(it)}
     }
 
 
+//Classes e propriedades de acesso
+    //class NomeDaClasse (variaveis do construtor) {...Segue um modelo semelhante ao java}
+    class User (var name:String, var lastName:String, var password:Int) {
+       val fullName
+            get() = "$name $lastName" //Esse trecho de codigo aparetemente atribui valor a ultima variavel declarada
+
+
+    }
+    var joao = User("Joao", "Farias", 21345)
+    println(joao.fullName)
+
+    var joao2 = joao
+    joao.password = 123
+    println(joao.password)
+    println(joao2.password)
+    println(joao === joao2) // === verifica se as duas variavel estao apontando para o mesmo endereco de memoria
+
+//DATA CLASS
+    //Ao atribuir uma classe como date class, essa classe passa a prossuir propriedades de setter, getter, hashcode, equals, toString
+    //Ou seja, tudo o que era construido na "unha" no java, com o kotlin esse procedimento ja eh incluido sem trabalho
+   data class Product (var name: String, var price: Double ) {
+
+
+            * Todos os codigos abaixo passam a fazer parte da classe quando se atribui a classe como um dataClass
+
+            override fun equals(other: Any?): Boolean {
+            if (other === this) return true
+            else if (other == null) return false
+            else if (javaClass != other.javaClass) return false
+
+            var obj = other as Product //converte o objeto other para o Product e o atribui para a variavel obj
+            //Verifica se os atributor de other sao iguais aos atributos do construtor Product
+            if (name != obj.name) return false
+            else if (price != obj.price) return false
+            return true
+        }
+
+        override fun toString(): String {
+            return "Product is (Name: $name, Price: $price)"
+        }
+    }
+    var iPhone = Product("iPhone", 2000.0)
+    var android = Product("Android", 3000.0)
+    //Quando da um println em um objeto, eh retornado o conteudo da funcao toString
+    println(iPhone)
+    iPhone == android
+    iPhone.equals(android)
+
+    //Tirando propriedades de dentro de um objeto
+    //Havera uma unica instancia durante toda a vida do projeto usando o padrao singleton
+    var (name, price) = iPhone
+    println("Nome: $name, Price: $price")
+
+    object Products {
+        var allProducts = mutableListOf<Product>()
+        fun addProduct(product: Product) {
+            allProducts.add(product)
+        }
+    }
+    Products.addProduct(iPhone)
+    Products.addProduct(android)
+    Products.allProducts.forEach(){
+        println(it.toString())
+    }
+
+    //O object pode ser usado em um padrao de chave e valor como o Json
+    object Keys {
+        const val ID = "id"
+        const val NAME = "ALTER_BRIDGE"
+    }
+
+//COMPANION
+    //private constructor -> Faz com que o construtor seja privado para que niguem instancie essa classe
+    //Contudo, o companion object permite que instancias seja criadas dentro da classe
+    class Button private constructor (val id: Int, color:Int ) {
+        //Tudo o que esta dentro do companion object eh compartilhado por todos os objetos desse contexto, ou seja
+        //Eh criado um "bloco estatico".
+        companion object { //Para que o companion object fique disponivel no java, eh necessario dar um nome: companion object NomeDoObject {...}
+            var currentId = 0
+            fun newButton (color: Int): Button {
+                currentId ++
+                return (Button(currentId, color))
+            }
+        }
+    }
+
+    val blue = Button.newButton(255)
+    println(blue.id)
+    val yellow = Button.newButton(0)
+    println(yellow.id)
+
+//INTERFACES
+    interface OnClickListener {
+        fun onClick ()
+        fun onLongClick()
+    }
+    //Criando um objeto de inteface anonima
+    /*No java, esta seria a forma de se criar um objeto de interface anonima:
+        OnClickListener listener = new OnClickListener () {
+            //Implementada os metodos...
+        }
+        Essa foi a forma que me fez ficar um pouco confuso quando vi isso em java achando que estava sendo criado uma instancia de uma interface
+        */
+    //Modo Kotlin de se criar um objeto de interface anonima
+    var listener = object: OnClickListener {
+        override fun onClick() {/*...*/}
+
+        override fun onLongClick(){/*...*/}
+    }
+    //Bloco de construcao init
+    class Screen {
+        var top = 0
+        var left = 0
+        var bottom: Int
+        var right:Int
+
+        //Bloco init eh inicializado quando a classe for instanciada
+        init {
+            bottom = 10
+            right = 10
+        }
+
+    }
+
+//SETTERS AND GETTERS DIRETO NA VARIAVEL
+    class Converter (var real:Double) {
+        var dolar: Double
+            get () { //Sempre que a variavel dolar for acessada, sera executada essas instrucoes
+                return real / 3.5
+            }
+            set (valor) { //Sempre que for atribuido uma valor para dolar, sera executada essas instrucoes
+                dolar = valor * 3.5
+            }
+    }
+    val converter = Converter(3.5)
+    println(converter.dolar)
+    converter.dolar = 10.0
+    println(converter.real)
+
+    class Level (val id:Int, var boss:String) {
+        companion object {
+            @JvmStatic //Com @JvmStatic , o bloco fica disponivel como estatico para o java
+            var higherLevel = 10;
+        }
+    }
+    val chefao = Level(1, "Sefiroty")
+    Level.higherLevel
+
+//DELEGATES E OBSERVERS
+    class Achivements (val id:Int) {
+        companion object {
+            @JvmStatic
+            var level = 1
+        }
+        /*Informando que a variavel vai realizar eventos sempre que mudar de estado
+        * Esse procedimento seria feito nesse exemplo hipotetico como uma compra de uma conquista no meu jogo e automaticamente
+        * subir de nivel.
+        * Quando a variavel buy tiver o seu valor modificado para true, o bloco de codigo que atribui do id para a variavel level
+        * sera executado. Esse eh o principio de uma programacao reativa e alguma pessoas chamam esse procedimento de propriedades
+        * delegadas ou inicializacoes e mudancas de estados atrasada    .
+        * */
+        var buy:Boolean by Delegates.observable(false) {
+            //O valor inicial dessa variavel sera falso. Nao sera usado o valor inicial no proximo codigo ->
+            _,old, new -> //old - valor velho; new valor novo. Nesse caso sera de false para true
+            //Verifica se eh um valor novo e se o id eh maior que o level
+            if (new && id > level) {
+                level = id
+            }
+            println("$old - $new")
+
+        }
+    }
+
+    val act1 = Achivements (1)
+    val act2 = Achivements (2)
+    println(Achivements.level)
+    act2.buy = true
+    println(Achivements.level)
+
+    class DB {
+        companion object {
+            const val maxUser = 10
+        }
+        var current: Int by Delegates.vetoable(0) {
+            _,_,new ->
+            new <= maxUser /*a variavel current tera somente o seu valor alterado quando o novo valor atribuido (new)
+            for menor ou igual ao maxUser (ou seja 10), caso o valor atribuido seja maior, entao sera atribuido o valor
+            inicial 0. */
+        }
+    }
+    val db = DB ()
+    db.current = 20
+    println(db.current)
+
+ */
+
+//INICIALIZACAO ATRASADA COM LAZY
+    //O lazy eh usado fazer com que a variavel somente inicializado quando for ser usada, assim economiza-se memoria
+    class Window (val scale:Int) {
+        val height: Int by lazy {
+            400 * scale
+        }
+        val width:Int
+            get() = height / 16/ 9
+    }
+    val w = Window(2)
+    println(w.height)
+
+    //Outra forma de se iniciar uma variavel de forma atrasada eh usar o lateinit
+    class Color {
+        lateinit var value:String
+    }
+
+//EXTENSIONS
+    //faz com que seja adicionado um novo atributo coloca-lo direto no corpo da classe. No exemplo, sera colocado
+    //dentro da classe Window o atributo
+    val Window.size: Int
+        get() = height * width
+
+    val window1 = Window(2)
+    println(window1.size)
 
