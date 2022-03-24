@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--NestedScrollView possibilita que ao ser feita a rolagem da RecycleView
-em formato de GRID todo o resto da tela tambem ira acompanhar o movimento
+em formato de GRID to.do o resto da tela tambem ira acompanhar o movimento
 OBS.: Foi necessário fazer uma alteracao na recyclerView
 
 Se preferir deixar a RecyclerView presa, basta colocar o constraint layout como a tag raiz

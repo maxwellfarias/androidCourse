@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.netflixremake.MovieActivity
 import com.example.netflixremake.R
 import com.example.netflixremake.model.Category
 import com.example.netflixremake.model.Movie
@@ -89,6 +88,9 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         MovieActivity::class.java
                     ) //MovieActivity::class.java eh como se fosse MovieActivity.java
+                    //no campo de imports- > import com.example.netflixremake.R foi apagado a parte que fazer referencia a classe MovieActivity em java,
+                    //deixando apenas o R, assim o programa entende que o MovieActivity::class.java faz referencia agora a classe do kotlin, pois esta no mesmo
+                    //pacote
                     intent.putExtra("id", movie.id)
                     startActivity(intent)
                 }

@@ -97,7 +97,7 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
         textViewTitleCover.setText(movieDetail.getMovie().getTitle());
 
         movieSimilarAdapter.setMovies(movieDetail.getMovieSimilar());
-        //Notifica que os todos os dados que estavam sendo esperados já podem ser populados no movieSimilarAdapter
+        //Notifica que todos os dados que estavam sendo esperados já podem ser populados no movieSimilarAdapter
         movieSimilarAdapter.notifyDataSetChanged();
 
         //Adicionando a imagem da player do movie
