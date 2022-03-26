@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.netflixremake.R
 import com.example.netflixremake.model.Movie
@@ -14,10 +16,13 @@ import kotlinx.android.synthetic.main.category_item.*
 
 import kotlinx.android.synthetic.main.movie_item_similar.view.*
 
-class MovieActivity: AppCompatActivity() {
+class MovieActivity : AppCompatActivity() {
+    private lateinit var movieSimilarAdapter: MovieSimilarAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
+
 
         //Descompacta o conteudo de uma variavel que aceita nullo
         intent.extras?.let {
@@ -25,16 +30,22 @@ class MovieActivity: AppCompatActivity() {
             val task = MovieDetailTask(this)
             task.setMovieDetailLoader { movieDetail ->
                 text_view_title_cover.text = movieDetail.movie.title
-                text_view_cast.text = movieDetail.movie.cast
-                text_view_desc.text = getString(R.string.cast,movieDetail.movie.desc)
+                text_view_cast.text = getString(R.string.cast, movieDetail.movie.cast)
+                text_view_desc.text = movieDetail.movie.desc
+
+                val movies = arrayListOf<Movie>()
+                movieSimilarAdapter = MovieSimilarAdapter(movies)
+                rv_similar.adapter = movieSimilarAdapter
+                rv_similar.layoutManager = GridLayoutManager(this, 3)
 
                 //O metodo apply faz com que possa ser chamado os metodos do imageDownloadTask sem a necessidade de instanciar o ImageDownloadTask
-                ImageDownloadTask(image_view_cover_play).apply{
+                ImageDownloadTask(image_view_cover_play).apply {
                     setShadowEnabled(true)
                     execute(movieDetail.movie.coverUrl)
                 }
-
-
+                movieSimilarAdapter.movies.clear()
+                movieSimilarAdapter.movies.addAll(movieDetail.movieSimilar)
+                movieSimilarAdapter.notifyDataSetChanged()
 
             }
             task.execute("https://tiagoaguiar.co/api/netflix/$id")
@@ -48,10 +59,13 @@ class MovieActivity: AppCompatActivity() {
                 //Oculta o titulo
                 toolbar.title = null
             }
+
+
         }
     }
-    private class MovieSimilarHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind (movie: Movie)  {
+
+    private class MovieSimilarHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(movie: Movie) {
             with(itemView) {
                 ImageDownloadTask(image_view_cover_similar).execute(movie.coverUrl)
             }
@@ -59,12 +73,15 @@ class MovieActivity: AppCompatActivity() {
         }
 
     }
-    private inner class MovieSimilarAdapter (val movies : List<Movie>): RecyclerView.Adapter<MovieSimilarHolder>() {
+
+    private inner class MovieSimilarAdapter(val movies: MutableList<Movie>) :
+        RecyclerView.Adapter<MovieSimilarHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             MovieSimilarHolder(layoutInflater.inflate(R.layout.movie_item_similar, parent, false))
 
 
-        override fun onBindViewHolder(holder: MovieSimilarHolder, position: Int) = holder.bind(movies[position])
+        override fun onBindViewHolder(holder: MovieSimilarHolder, position: Int) =
+            holder.bind(movies[position])
 
         override fun getItemCount() = movies.size
     }
