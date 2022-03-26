@@ -56,7 +56,7 @@ public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
 
             InputStream inputStream = urlConnection.getInputStream();
             if (inputStream != null) {
-                //Transforma todo o stream em transforma em bytes de imagem (Bitmap)
+                //Transforma todo_ o stream em bytes de imagem (Bitmap)
                 return BitmapFactory.decodeStream(inputStream);
             }
 

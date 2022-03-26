@@ -10,6 +10,7 @@ import com.example.netflixremake.model.Movie
 import com.example.netflixremake.util.ImageDownloadTask
 import com.example.netflixremake.util.MovieDetailTask
 import kotlinx.android.synthetic.main.activity_movie.*
+import kotlinx.android.synthetic.main.category_item.*
 
 import kotlinx.android.synthetic.main.movie_item_similar.view.*
 
@@ -22,10 +23,21 @@ class MovieActivity: AppCompatActivity() {
         intent.extras?.let {
             val id = it.getInt("id")
             val task = MovieDetailTask(this)
-            task.setMovieDetailLoader {
+            task.setMovieDetailLoader { movieDetail ->
+                text_view_title_cover.text = movieDetail.movie.title
+                text_view_cast.text = movieDetail.movie.cast
+                text_view_desc.text = getString(R.string.cast,movieDetail.movie.desc)
+
+                //O metodo apply faz com que possa ser chamado os metodos do imageDownloadTask sem a necessidade de instanciar o ImageDownloadTask
+                ImageDownloadTask(image_view_cover_play).apply{
+                    setShadowEnabled(true)
+                    execute(movieDetail.movie.coverUrl)
+                }
+
+
 
             }
-            task.execute("//tiagoaguiar.co/api/netflix/$id")
+            task.execute("https://tiagoaguiar.co/api/netflix/$id")
             //Nao precisou do findViewById, foi encontrado direto usando toolbar que eh o id da toolbar
             setSupportActionBar(toolbar)
             supportActionBar?.let { toolbar ->
@@ -41,7 +53,8 @@ class MovieActivity: AppCompatActivity() {
     private class MovieSimilarHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind (movie: Movie)  {
             with(itemView) {
-                ImageDownloadTask(image_view_cover_similar).execute(movie.coverUrl)}
+                ImageDownloadTask(image_view_cover_similar).execute(movie.coverUrl)
+            }
 
         }
 
@@ -51,11 +64,8 @@ class MovieActivity: AppCompatActivity() {
             MovieSimilarHolder(layoutInflater.inflate(R.layout.movie_item_similar, parent, false))
 
 
-        override fun onBindViewHolder(holder: MovieSimilarHolder, position: Int) {
+        override fun onBindViewHolder(holder: MovieSimilarHolder, position: Int) = holder.bind(movies[position])
 
-        }
         override fun getItemCount() = movies.size
-
-
     }
 }
