@@ -82,13 +82,13 @@ public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
            //Desvia o fluxo caso o metodo setShadowEnabled tiver sido setado com true. Eh feita a conversao do bitmap em drawable e esse
            //drawable eh usado para modificar a imagem de fundo da shadows.xml, fazendo com que haja um efeito de sombra.
            if (shadowEnabled) {
-               //Cria u drawable que faz referencia ao shadows
+               //Cria que drawable que faz referencia ao shadows
                LayerDrawable drawable = (LayerDrawable) ContextCompat.getDrawable(imageView.getContext(),
                        R.drawable.shadows);
                if (drawable != null) {
                    //Cria um drawble a partir de uma bitmap
                    BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-                   //Muda a imagem no drawble shadows para a imagem que foi carregada atraves do link
+                   //Muda a imagem no drawble para a imagem que foi carregada atraves do link
                    drawable.setDrawableByLayerId(R.id.cover_drawable, bitmapDrawable);
                    //Muda a imagem no imageView
                    imageView.setImageDrawable(drawable);
