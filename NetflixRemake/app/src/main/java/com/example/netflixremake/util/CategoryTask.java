@@ -20,7 +20,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CancellationException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -152,8 +151,7 @@ public class CategoryTask extends AsyncTask<String, Void, List<Category>> {
                 movies.add(movieObj);
             }
 
-            Category categoryObj = new Category(title);
-            categoryObj.setMovies(movies);
+            Category categoryObj = new Category(title, movies);
 
             categories.add(categoryObj);
         }

@@ -56,6 +56,7 @@ class MovieActivity : AppCompatActivity() {
                     execute(movieDetail.movie.coverUrl)
                 }*/
 
+                //Adicionando a imagem com sombra ao fundo
                 Glide.with(this)
                     .load(movieDetail.movie.coverUrl)
                     //Serve para ouvir eventos quando estiver preparado para fazer insert do bitmap e tambem para ouvir alguma falha
@@ -77,7 +78,7 @@ class MovieActivity : AppCompatActivity() {
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            //Cria um drawable com as mesmas propriedades do shadows, o 'as LayerDrawable?' eh a forma que feita o cast para LayerDrawable
+                            //Cria um drawable com as mesmas propriedades do shadows, o 'as LayerDrawable?' eh a forma que é feita o cast para LayerDrawable
                             val drawable: LayerDrawable? = ContextCompat.getDrawable(baseContext, R.drawable.shadows) as LayerDrawable?
                             drawable?.let {
                                 //Muda para a imagem que foi carregada atraves do link (resource faz referencia para a imagem carregada).

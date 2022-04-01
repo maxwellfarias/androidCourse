@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         fun bind(category: Category) = with(itemView) {
             //Nao eh mais necessario usar setText ou getText, o '.text' substitui essa funcao, pois todos os setters e getters estao inferidos
             text_view_title.text = category.name
-                rv_movie.adapter = MovieAdapter(category.movies) { movie ->
+            rv_movie.adapter = MovieAdapter(category.movies) { movie ->
                 if (movie.id > 3) {
                     Toast.makeText(
                         this@MainActivity,
@@ -107,14 +107,14 @@ class MainActivity : AppCompatActivity() {
         RecyclerView.ViewHolder(itemView) {
         //((Int) -> Unit)?, '?' foi colocada que aceita ou nao null, pois a interface pode ou nao ser implementada
         fun bind(movie: Movie) = with(itemView) {
-           /* Forma antiga para carregar imagens:
-           ImageDownloadTask(image_view_cover)
-                .execute(movie.coverUrl)*/
+            /* Forma antiga para carregar imagens:
+            ImageDownloadTask(image_view_cover)
+                 .execute(movie.coverUrl)*/
             //Nova forma utilizando o Glide:
             Glide.with(context)
                 .load(movie.coverUrl) //Url que sera carregada
                 .placeholder(R.drawable.placeholer_bg) //Pode ser passado um arquivo de recursos como o drawable para usar como replace, substituindo
-            //a cor preta que tinha sido passada antes
+                //a cor preta que tinha sido passada antes
                 .into(image_view_cover) //diz qual eh a imageView que sera adicionado o recurso
 
             image_view_cover.setOnClickListener {
