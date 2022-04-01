@@ -2,6 +2,10 @@ package com.example.netflixremake.model
 
 import com.google.gson.annotations.SerializedName
 
+/*@SerializedName("category") SerializedName serve para que o jSOnObject seja mapeado, o seu valor
+sera a chave do que se deseja no jSON e em seguida eh declarado uma variavel de acordo com o tipo
+do valor que a chave faz referencia
+O SerializedName foi colocado somente em dados que mudam ao longo do programa*/
 data class Categories(@SerializedName("category") val categories: List<Category>)
 
 data class Category(@SerializedName("title") var name: String = "",
@@ -13,10 +17,11 @@ data class Movie(var id: Int = 0,
                  var desc: String = "",
                  var cast: String = "")
 
+/*
 data class MovieDetail(
     var id: Int = 0,
     @SerializedName("cover_url") var coverUrl: String = "",
     var title: String = "",
     var desc: String = "",
     var cast: String = "",
-    @SerializedName("movie") val moviesSimilar: List<Movie>)
+    @SerializedName("movie") val moviesSimilar: List<Movie>)*/

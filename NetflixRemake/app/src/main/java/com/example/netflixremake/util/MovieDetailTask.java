@@ -91,7 +91,7 @@ public class MovieDetailTask extends AsyncTask <String, Void, MovieDetail> {
         movie.setDesc(desc);
         movie.setTitle(title);
 
-        return new MovieDetail(movie, movies);
+        return new MovieDetail(movie.getId(), movie.getCoverUrl(), movie.getTitle(), movie.getDesc(), movie.getCast(), movies);
     }
 
     private String toString(InputStream in) throws IOException {

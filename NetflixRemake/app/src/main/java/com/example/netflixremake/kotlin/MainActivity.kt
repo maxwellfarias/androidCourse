@@ -14,6 +14,7 @@ import com.example.netflixremake.R
 import com.example.netflixremake.model.Categories
 import com.example.netflixremake.model.Category
 import com.example.netflixremake.model.Movie
+import com.example.netflixremake.util.CategoryTask
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.category_item.view.*
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         implementada na interface eh possivel usar a funcao lambda para implementa-la. Aparentemente eh passado um objeto anonimo que implementa o
          onResult sendo possivel na funcao lambda dizer como sera a implementacao*/
 
-        /*val categoryTask = CategoryTask(this)
+       /* val categoryTask = CategoryTask(this)
         categoryTask.setCategoryLoader() { categories ->
             mainAdapter.categories.clear()
             mainAdapter.categories.addAll(categories)
@@ -51,15 +52,17 @@ class MainActivity : AppCompatActivity() {
         }
         categoryTask.execute("https://tiagoaguiar.co/api/netflix/home")*/
 
-        retrofit().create(NetflixAPI::class.java)
+        retrofit().create(NetflixAPI::class.java) //::class.java equivale ao .class do java
             .listCategories()
             .enqueue(object : Callback<Categories> {
+                //Verifica se houve falhas
                 override fun onFailure(call: Call<Categories>, t: Throwable) {
                     Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
                     if (response.isSuccessful) {
+                        //.body pegua o corpo da resposta, que no caso eh a instancia que agrupa o proprio categories
                         response.body()?.let {
                             mainAdapter.categories.clear()
                             mainAdapter.categories.addAll(it.categories)

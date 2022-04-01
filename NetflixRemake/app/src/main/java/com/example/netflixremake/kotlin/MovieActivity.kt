@@ -39,9 +39,9 @@ class MovieActivity : AppCompatActivity() {
             val id = it.getInt("id")
             val task = MovieDetailTask(this)
             task.setMovieDetailLoader { movieDetail ->
-                text_view_title_cover.text = movieDetail.movie.title
-                text_view_cast.text = getString(R.string.cast, movieDetail.movie.cast)
-                text_view_desc.text = movieDetail.movie.desc
+                text_view_title_cover.text = movieDetail.title
+                text_view_cast.text = getString(R.string.cast, movieDetail.cast)
+                text_view_desc.text = movieDetail.desc
 
                 val movies = arrayListOf<Movie>()
                 movieSimilarAdapter = MovieSimilarAdapter(movies)
@@ -58,7 +58,7 @@ class MovieActivity : AppCompatActivity() {
 
                 //Adicionando a imagem com sombra ao fundo
                 Glide.with(this)
-                    .load(movieDetail.movie.coverUrl)
+                    .load(movieDetail.coverUrl)
                     //Serve para ouvir eventos quando estiver preparado para fazer insert do bitmap e tambem para ouvir alguma falha
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
@@ -94,7 +94,7 @@ class MovieActivity : AppCompatActivity() {
                     .into(image_view_cover_play)
 
                 movieSimilarAdapter.movies.clear()
-                movieSimilarAdapter.movies.addAll(movieDetail.movieSimilar)
+                movieSimilarAdapter.movies.addAll(movieDetail.moviesSimilar)
                 movieSimilarAdapter.notifyDataSetChanged()
 
             }
@@ -127,7 +127,7 @@ class MovieActivity : AppCompatActivity() {
                 /*ImageDownloadTask(image_view_cover_similar).execute(movie.coverUrl)*/
                 Glide.with(this)
                     .load(movie.coverUrl)
-                     //Modifica o fundo do aquivo 'R.drawable.placeholer_bg', este esta sendo usando como
+                    //Modifica o fundo do aquivo 'R.drawable.placeholer_bg', este esta sendo usando como
                     //imagem de fundo pelo ImageView do movie_item. Ou seja, modificando a sua imagem, modificara
                     //tambem o fundo do imageView
                     .placeholder(R.drawable.placeholer_bg)

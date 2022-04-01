@@ -89,18 +89,18 @@ public class MovieActivity extends AppCompatActivity implements MovieDetailTask.
 
     @Override
     public void onResult(MovieDetail movieDetail) {
-        textViewDesc.setText(movieDetail.getMovie().getDesc());
-        textViewCast.setText(movieDetail.getMovie().getCast());
-        textViewTitleCover.setText(movieDetail.getMovie().getTitle());
+        textViewDesc.setText(movieDetail.getDesc());
+        textViewCast.setText(movieDetail.getCast());
+        textViewTitleCover.setText(movieDetail.getTitle());
 
-        movieSimilarAdapter.setMovies(movieDetail.getMovieSimilar());
+        movieSimilarAdapter.setMovies(movieDetail.getMoviesSimilar());
         //Notifica que todos os dados que estavam sendo esperados já podem ser populados no movieSimilarAdapter
         movieSimilarAdapter.notifyDataSetChanged();
 
         //Adicionando a imagem da player do movie
         ImageDownloadTask imageDownloadTask = new ImageDownloadTask(imageCover);
         imageDownloadTask.setShadowEnabled(true);
-        imageDownloadTask.execute(movieDetail.getMovie().getCoverUrl());
+        imageDownloadTask.execute(movieDetail.getCoverUrl());
 
     }
 
