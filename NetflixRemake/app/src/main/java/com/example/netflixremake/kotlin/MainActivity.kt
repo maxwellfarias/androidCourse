@@ -8,16 +8,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.bumptech.glide.Glide
 import com.example.netflixremake.R
+import com.example.netflixremake.model.Categories
 import com.example.netflixremake.model.Category
 import com.example.netflixremake.model.Movie
-import com.example.netflixremake.util.CategoryTask
-import com.example.netflixremake.util.ImageDownloadTask
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.category_item.view.*
 import kotlinx.android.synthetic.main.movie_item.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     //Sera usado o lateinit para que o programa aloque um espaco na memoria para a variavel mainAdapter somente quando o metodo onCreate for
@@ -35,16 +38,37 @@ class MainActivity : AppCompatActivity() {
         rv_view_main.adapter = mainAdapter
         rv_view_main.layoutManager = LinearLayoutManager(this)
 
-        val categoryTask = CategoryTask(this)
-        /* O  categoryTask.setCategoryLoader() espera um objeto que implemente a funcao onResult da interface. Quando ha somente uma funcao a ser
+
+         /*O  categoryTask.setCategoryLoader() espera um objeto que implemente a funcao onResult da interface. Quando ha somente uma funcao a ser
         implementada na interface eh possivel usar a funcao lambda para implementa-la. Aparentemente eh passado um objeto anonimo que implementa o
          onResult sendo possivel na funcao lambda dizer como sera a implementacao*/
+
+        /*val categoryTask = CategoryTask(this)
         categoryTask.setCategoryLoader() { categories ->
             mainAdapter.categories.clear()
             mainAdapter.categories.addAll(categories)
             mainAdapter.notifyDataSetChanged()
         }
-        categoryTask.execute("https://tiagoaguiar.co/api/netflix/home")
+        categoryTask.execute("https://tiagoaguiar.co/api/netflix/home")*/
+
+        retrofit().create(NetflixAPI::class.java)
+            .listCategories()
+            .enqueue(object : Callback<Categories> {
+                override fun onFailure(call: Call<Categories>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            mainAdapter.categories.clear()
+                            mainAdapter.categories.addAll(it.categories)
+                            mainAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+            })
 
     }
 
@@ -143,4 +167,3 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-
