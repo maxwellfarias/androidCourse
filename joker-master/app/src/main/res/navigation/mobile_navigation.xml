@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ 1) app:startDestination indica qual sera o primeiro fragmento que sera
+aberto ao iniciar a navegacao
+2) android:name="co.tiagoaguiar.tutorial.jokerappdev.HomeFragment associa
+a classe kotlin ao fragment
+
+Eh como se tivessemos 3 activities, mas ao inves disso, usamos uma activity com pedacos
+de layouts especificos dinamicos.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_about">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_joke_day"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.JokeDayFragment"
+        android:label="@string/menu_joke_day"
+        tools:layout="@layout/fragment_joke_day" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
+
+</navigation>

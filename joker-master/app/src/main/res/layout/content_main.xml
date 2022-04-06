@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Devido ao procedimento padrao do  CoordinatorLayout, o constraintlayout e seu
+<!--
+1) Devido ao procedimento padrao do  CoordinatorLayout, o constraintlayout e seu
   conteudo ficaria atras da toolbar, a fim de evitar esse comportamento de modo que o
   conteudo do ConstraintLayout viesse logo abaixo do componente anterior, foi adicionado
    app:layout_behavior="@string/appbar_scrolling_view_behavior
-   -->
+
+2) Um FRAGMENT usa uma determinada view e troca apenas o conteudo de uma view dinamicamente.
+É um fragmento de tela, ou seja, somente um pedaço da tela principal. Nesse caso, vamos
+precisar de uma caixa. onde sera trocado o conteudo dinamicamente baseado no clique no menu.
+
+3) app:defaultNavHost-> Indica que eh o fragmento de navegacao principal do projeto. Esse
+fragment ira hospedar todos os demais fragments
+
+4) app:navGraph="@navigation/mobile_navigation" associa o fragment a tela de navegacao
+ -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <fragment
+        android:id="@+id/nav_host_fragment_content_main"
+        app:defaultNavHost="true"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/mobile_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
