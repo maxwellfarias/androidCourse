@@ -13,13 +13,16 @@ for clicado, ele conseguira associar esse comportamente com a barra de navegacao
         android:layout_height="wrap_content"
         android:theme="@style/Theme.JokerAppDev.AppbarOverlay">
 
-        <!-- ?attr/actionBarSize fez uso de uma dimensao que estava no SDK-->
+        <!-- ?attr/actionBarSize fez uso de uma dimensao que estava no SDK
+        android:popupTheme="@style/Theme.JokerAppDev.PopupOverlay" muda a cor
+        do menu hamburguer e o nome que fica ao seu lado
+        -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/Theme.JokerAppDev.PopupOverlay" />
+            android:popupTheme="@style/Theme.JokerAppDev.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

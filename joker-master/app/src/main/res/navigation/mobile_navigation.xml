@@ -4,6 +4,11 @@ aberto ao iniciar a navegacao
 2) android:name="co.tiagoaguiar.tutorial.jokerappdev.HomeFragment associa
 a classe kotlin ao fragment
 
+3) Eu tinha nomeado os IDs de cada fragment dentro de "mobile_navigation"
+pra ficar diferente dos IDs dos menus em "activity_main_drawer", nisso descobri
+que precisam ser os mesmos IDs para o menu conseguir fazer a sincronização e a propriedade
+"checkableBehavior"
+
 Eh como se tivessemos 3 activities, mas ao inves disso, usamos uma activity com pedacos
 de layouts especificos dinamicos.
 -->
@@ -11,7 +16,7 @@ de layouts especificos dinamicos.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_about">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
