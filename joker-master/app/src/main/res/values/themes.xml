@@ -16,4 +16,18 @@
     <!--    -->
     <style name="Theme.JokerAppDev.AppbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="Theme.JokerAppDev.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- Tema usado para configurar o splash screen-->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Modifica a cor de fundo-->
+        <item name="windowSplashScreenBackground">@color/blue_700</item>
+        <!-- Seleciona a imagem da logo-->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <!--Tempo que a animacao ira ficar visivel em milisegundos -->
+        <item name="windowSplashScreenAnimationDuration">200</item>
+        <!-- Tema que sera carregado depois que a splashScreen acabar-->
+        <item name="postSplashScreenTheme">@style/Theme.JokerAppDev</item>
+        <!--Apos esses ajustes eh preciso modificar o manifest (tanto da tag application quanto em activity)
+         para que o tema de entrada seja o  Theme.App.Starting-->
+    </style>
 </resources>

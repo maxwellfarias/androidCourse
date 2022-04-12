@@ -3,6 +3,7 @@ package co.tiagoaguiar.tutorial.jokerappdev
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Essa funcao vem da biblioteca adicionada para manipular animacao de splash screen e ao ser
+        //disparada eh chamada a splash screen. Obs.: Ela deve ser colocada antes do setContentView()
+        installSplashScreen()
+
         setContentView(R.layout.activity_main)
 
         //Como foi informado que essa toolbar eh uma toolbar de acao, entao eh necessario os componentes do
