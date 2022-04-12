@@ -18,6 +18,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        //Sera buscado codigos fontes de terceiros a fim de que o nosso projeto seja encontrado, isso geralmente eh feito quando se tem projetos no git
+         maven {url "https://jitpack.io"}
     }
 }
 

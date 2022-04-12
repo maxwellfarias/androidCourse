@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
  1) app:startDestination indica qual sera o primeiro fragmento que sera
 aberto ao iniciar a navegacao
-2) android:name="co.tiagoaguiar.tutorial.jokerappdev.HomeFragment associa
+2) android:name="co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment associa
 a classe kotlin ao fragment
 
 3) Eu tinha nomeado os IDs de cada fragment dentro de "mobile_navigation"
@@ -20,7 +20,7 @@ de layouts especificos dinamicos.
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="co.tiagoaguiar.tutorial.jokerappdev.HomeFragment"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
