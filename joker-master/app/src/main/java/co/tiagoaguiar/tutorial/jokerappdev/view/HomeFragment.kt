@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.tutorial.jokerappdev.CategoryItem
 import co.tiagoaguiar.tutorial.jokerappdev.R
+import co.tiagoaguiar.tutorial.jokerappdev.data.CategoryRemoteDataSource
 import co.tiagoaguiar.tutorial.jokerappdev.model.Category
 import co.tiagoaguiar.tutorial.jokerappdev.presentation.HomePresenter
 import com.xwray.groupie.GroupieAdapter
@@ -27,6 +28,8 @@ class HomeFragment : Fragment() {
     private lateinit var presenter: HomePresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         //Conecta a camada da view com a present
         presenter = HomePresenter(this)
     }
@@ -50,10 +53,10 @@ class HomeFragment : Fragment() {
         //Pega a referencia da progress bar
         progressBar = view.findViewById(R.id.progress_bar)
 
-        /*Faz a solicitacao para o presenter encontre as categorias. Esse metodo chama o fakeRequest
-        que eh um metodo privado que faz a requisicao para o banco de dados -> A resposta eh passada para
-        o onSuccess, eh feito o tratamento dos dados para o formato desejado e o resultado eh devolvido chamando
-        a funcao showCategories*/
+        /*Faz a solicitacao para que o presenter encontre as categorias. Esse metodo chama o
+        dataSource.findAllCategories(this) que eh um metodo privado que faz a requisicao para o
+        banco de dados -> A resposta eh passada para o onSuccess, eh feito o tratamento dos dados
+        para o formato desejado e o resultado eh devolvido chamando a funcao showCategories*/
         presenter.findAllCategories()
 
         //Liga o adapter generico ao recyclerView
