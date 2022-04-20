@@ -9,7 +9,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
 //Representa o item da celula especifica. Sera vinculado o modelo de dados com o layout estatico
-class CategoryItem (private val category: Category): Item<CategoryItem.CategoryViewHolder>() {
+class CategoryItem (val category: Category): Item<CategoryItem.CategoryViewHolder>() {
     //A view faz referencia ao item_category.xml (Linear Layout) especificado em 'override fun getLayout() = R.layout.item_category'
     class CategoryViewHolder(view: View): GroupieViewHolder(view)
     //Retorna um objeto vivo categoryViewHolder. ItemView aparentemente eh obtido como o retornodo getLayout() = R.layout.item_category

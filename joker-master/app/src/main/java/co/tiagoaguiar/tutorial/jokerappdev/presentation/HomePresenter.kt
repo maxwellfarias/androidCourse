@@ -30,13 +30,13 @@ class HomePresenter(
     //:::::::::::: METODO DE OUTPUT ::::::::::::: (success, falha, complete)
 
     /*A funcao eh executada quando houver sucesso na requisicao para o banco de dados, os dados serao
-    * formatadaos e enviados para a HomeFragment. onSruccess recebera como parametro uma lista de
+    * formatados e enviados para a HomeFragment. onSruccess recebera como parametro uma lista de
     * Strings que veio do banco de dados. Sera criado uma lista de Category com as informacoes da
     * lista do response*/
     override fun onSuccess(response: List<String>) {
         //Sera usando uma formatacao de cores
-        val start = 40 //H: Matriz inicial
-        val end = 190 //H: Matriz final
+        val start = 1 //H: Matriz inicial
+        val end = 350 //H: Matriz final
         val diff = (end - start)/ response.size
 
         val categories = response.mapIndexed { index, s ->

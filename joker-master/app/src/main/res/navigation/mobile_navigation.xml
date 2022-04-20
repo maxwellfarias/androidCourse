@@ -16,13 +16,23 @@ de layouts especificos dinamicos.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/nav_joke">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <!-- Adiciona um evento de acao entre os dois fragmentos, dessa forma, pode-se
+        clicar em um item da lista a fim de disparar essa acao-->
+        <action
+            android:id="@+id/action_nav_home_to_nav_joke"
+            app:destination="@id/nav_joke" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_joke"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.jokeFragment"
+        tools:layout="@layout/fragment_joke"/>
     <fragment
         android:id="@+id/nav_joke_day"
         android:name="co.tiagoaguiar.tutorial.jokerappdev.JokeDayFragment"
