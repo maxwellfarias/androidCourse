@@ -19,8 +19,9 @@ interface ChuckNorrisAPI {
     //apiKey: String eh a variavel que recebera a chave de acesso para a requisicao
     fun findAllCategories(@Query("apiKey") apiKey: String = HTTPClient.API_KEY ): Call<List<String>>
 
+    //Caso nao seja informado nenhum parametro, o primeiro sera desconsiderado 'null' e o segundo sera a apiKey
     @GET("jokes/random")
-    fun findBy(@Query("category") categoryName: String, @Query("apiKey") apiKey: String = HTTPClient.API_KEY): Call<Joke>
+    fun findRandom(@Query("category") categoryName: String? = null, @Query("apiKey") apiKey: String = HTTPClient.API_KEY): Call<Joke>
 }
 
 

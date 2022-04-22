@@ -15,6 +15,7 @@ import co.tiagoaguiar.tutorial.jokerappdev.R
 import co.tiagoaguiar.tutorial.jokerappdev.model.Joke
 import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokePresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 
 class JokeFragment : Fragment() {
 
@@ -50,13 +51,15 @@ class JokeFragment : Fragment() {
         val categoryName = arguments?.getString(CATEGORY_KEY)
 
         categoryName?.let { categoryName ->
-            //activity?.findViewById<Toolbar> porque esse fragment compartilha da mesma toobar da mainActivit,
-            //O fragmento eh a parte interna e a atividade eh toda a casca do app
+            /*activity?.findViewById<Toolbar> porque esse fragment compartilha da mesma toobar da mainActivit,
+            O fragmento eh a parte interna e a atividade eh toda a casca do app. Eh feita a mundanca do
+            titulo da barra superior para o nome da categoria*/
             activity?.findViewById<Toolbar>(R.id.toolbar)?.title = categoryName
 
             //Pegando referencia das views
-            progressBar = view.findViewById(R.id.progress_bar)
+            progressBar = view.findViewById(R.id.joke_progress_bar)
             textView = view.findViewById(R.id.txt_joke)
+            imageView = view.findViewById(R.id.img_joke)
             view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(){
                 presenter.findBy(categoryName)
             }
@@ -70,7 +73,10 @@ class JokeFragment : Fragment() {
     //Metodo que devolve uma piada
     fun showJoke(joke: Joke) {
         textView.text = joke.text
-        //TODO: adicionar imagem
+        /*Eh usado a biblioteca Picasso para baixar a imagem de acordo com a url e atribui essa imagem
+        ao imageView. Os picasso armazena em memoria as urls que foram usadas, dessa forma nao demora
+        muito para carrega uma imagem que ja foi usada.*/
+        Picasso.get().load(joke.iconUrl).into(imageView)
     }
 
     fun showProgress() {
