@@ -16,7 +16,7 @@ de layouts especificos dinamicos.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_joke">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -31,16 +31,16 @@ de layouts especificos dinamicos.
     </fragment>
     <fragment
         android:id="@+id/nav_joke"
-        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.jokeFragment"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.JokeFragment"
         tools:layout="@layout/fragment_joke"/>
     <fragment
         android:id="@+id/nav_joke_day"
-        android:name="co.tiagoaguiar.tutorial.jokerappdev.JokeDayFragment"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.JokeDayFragment"
         android:label="@string/menu_joke_day"
         tools:layout="@layout/fragment_joke_day" />
     <fragment
         android:id="@+id/nav_about"
-        android:name="co.tiagoaguiar.tutorial.jokerappdev.AboutFragment"
+        android:name="co.tiagoaguiar.tutorial.jokerappdev.view.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 

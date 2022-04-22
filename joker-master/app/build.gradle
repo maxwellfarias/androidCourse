@@ -44,7 +44,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
-    //Adicionando a biblioteca do group
+    ////Adicionando a biblioteca do group - facilita o trabalho com adapter e viewHold
     implementation 'com.github.lisawray.groupie:groupie:2.9.0'
 
     //Adiciona a biblioteca para fazer a animacao na splash screen

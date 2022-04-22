@@ -4,13 +4,13 @@ import android.graphics.Color
 import co.tiagoaguiar.tutorial.jokerappdev.data.CategoryRemoteDataSource
 import co.tiagoaguiar.tutorial.jokerappdev.data.ListCategoryCallback
 import co.tiagoaguiar.tutorial.jokerappdev.model.Category
-import co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment
+import co.tiagoaguiar.tutorial.jokerappdev.view.PassDataToHomePresenter
 
 /*Esse ponto deveria ser passado via interface usando polimorfismo, mas para nao complicar demais
 * nesse primeiro instante, o professor opitou por usar a classe concreta como construtor da HomePresenter,
 * nos proximos modulos sera abordado usar nesse campo uma interface*/
 class HomePresenter(
-    private val view: HomeFragment,
+    private val view: PassDataToHomePresenter,
     //Caso o segundo parametro seja omitido, sera instanciado automaticamente o objeto CategoryRemoteDataSource
     private val dataSource: CategoryRemoteDataSource = CategoryRemoteDataSource()
 ): ListCategoryCallback {

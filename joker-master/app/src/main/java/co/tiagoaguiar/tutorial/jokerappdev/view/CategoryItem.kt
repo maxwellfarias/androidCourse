@@ -12,7 +12,7 @@ import com.xwray.groupie.Item
 class CategoryItem (val category: Category): Item<CategoryItem.CategoryViewHolder>() {
     //A view faz referencia ao item_category.xml (Linear Layout) especificado em 'override fun getLayout() = R.layout.item_category'
     class CategoryViewHolder(view: View): GroupieViewHolder(view)
-    //Retorna um objeto vivo categoryViewHolder. ItemView aparentemente eh obtido como o retornodo getLayout() = R.layout.item_category
+    //Retorna um objeto vivo categoryViewHolder. ItemView eh obtido como o retornodo getLayout() = R.layout.item_category
     override fun createViewHolder(itemView: View): CategoryViewHolder =  CategoryViewHolder(itemView)
 
     override fun bind(viewHolder: CategoryViewHolder, position: Int) {
