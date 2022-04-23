@@ -18,7 +18,7 @@ class JokeRemoteDataSource {
                         callback.onResponse(joke ?: throw RuntimeException("Piada nao encontrada"))
                     } else {
                         val error = response.errorBody()?.toString()
-                        callback.onError(error ?: "Erro bla bla bla")
+                        callback.onError(error ?: "Erro interno")
                     }
                     callback.onComplete()
 
