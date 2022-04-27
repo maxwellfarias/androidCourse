@@ -616,8 +616,7 @@ class Test {
         police.shot()
     }
 }
-//Para classes abstratas, eh necessario a open keyword para dizer quais funcoes e variaveis irao descender
-//Para classes nao abstratas isso nao se aplica?
+//Eh necessario a open keyword para dizer quais funcoes e variaveis irao descender
 abstract class Police {
     abstract fun shot()
     open fun lie() = println("Police lay")
