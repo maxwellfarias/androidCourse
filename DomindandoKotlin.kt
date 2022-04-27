@@ -599,3 +599,32 @@ class Room: Home {
     fun showHeight() = println(height)
     fun showWidth() = println(width)
 }
+
+
+//CLASSES ABSTRATAS
+
+fun main() {
+    val bope = Bope()
+    Test().apply {
+        test(bope)
+    }
+}
+class Test {
+    //Espera um objeto do tipo Police, mas sera passado do tipo Bope (que descende do Police) 
+    fun test(police: Police) {
+        police.lie()
+        police.shot()
+    }
+}
+//Para classes abstratas, eh necessario a open keyword para dizer quais funcoes e variaveis irao descender
+//Para classes nao abstratas isso nao se aplica?
+abstract class Police {
+    abstract fun shot()
+    open fun lie() = println("Police lay")
+}
+
+class Bope : Police() {
+    override fun shot() = println("Bope atirou")
+    override fun lie() = println("Police lay")
+    fun bope() = println("Funcao Bope")
+}
