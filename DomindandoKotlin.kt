@@ -543,3 +543,59 @@ numbers.forEach{println(it)}
     val window1 = Window(2)
     println(window1.size)
 
+showWidth()
+
+
+
+//TRABALHANDO COM CONSTRUTORES
+fun main() {
+    Home(6).apply {
+        println("-------Home(6)--------")
+        showColor()
+        showNumber()
+    }
+
+    Home(10, "Blue").apply {
+        println("-------Home(10, \"Blue\")--------")
+        showColor()
+        showNumber()
+    }
+
+    Room(20, "Red", 50, 100).apply{
+        showColor()
+        showNumber()
+        showHeight()
+        showWidth()
+    }
+}
+open class Home (var number: Int) {
+    var color: String = ""
+//this passa o valor para o construtor primario
+    constructor(number: Int, color: String):this(number) {
+        this.color = color
+    }
+
+
+    fun showNumber() = println(number)
+    fun showColor() = println(color)
+}
+
+class Room: Home {
+    var height: Int = 0
+    var width:Int = 0
+    //super para os valores para o contrutor da Home (number) ou (numer, color)
+    constructor(number: Int, color: String, height: Int): super(number, color){
+        this.height = height
+    }
+    //this passa os valores para o constutor secundario
+    constructor(number: Int, color: String, height: Int, width: Int):this(number, color, height) {
+        this.width = width
+    }
+
+    /*Nao eh possivel colocar um contrutor primario em Room, pois nessa eu teria que usar o this e o
+    * super no mesmo construtor, o que nao eh possivel. Entao basta fazer outros construtores diferentes
+    * do primario*/
+
+    fun showHeight() = println(height)
+    fun showWidth() = println(width)
+}
