@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-1) Devido ao procedimento padrao do  CoordinatorLayout, o constraintlayout e seu
+1) Devido ao procedimento padrao do  CoordinatorLayout, o constraintlayout o seu
   conteudo ficaria atras da toolbar, a fim de evitar esse comportamento de modo que o
   conteudo do ConstraintLayout viesse logo abaixo do componente anterior, foi adicionado
    app:layout_behavior="@string/appbar_scrolling_view_behavior
@@ -19,7 +19,9 @@ fragment ira hospedar todos os demais fragments
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
 
     <fragment
         android:id="@+id/nav_host_fragment_content_main"

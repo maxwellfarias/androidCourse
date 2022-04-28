@@ -11,14 +11,14 @@
     <!-- tools:openDrawer="start" habilita a barra de navegacao lateral de gaveta
     para vizualizacao -->
 
-<!-- Incluindo o layout do menu principal -->
+    <!-- Incluindo o layout do menu principal -->
     <include
         android:id="@+id/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         layout="@layout/app_bar_main"/>
 
-    <!-- Barra de navegacoa lateral-->
+    <!-- Barra de navegacoa lateral
+    android:layout_gravity="start" indica onde ira aparecer a barra de navegacao lateral
+    -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         app:menu="@menu/activity_main_drawer"
@@ -26,6 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:headerLayout="@layout/nav_header_main"
-         />
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

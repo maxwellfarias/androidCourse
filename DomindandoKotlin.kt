@@ -261,8 +261,8 @@ numbers.forEach{println(it)}
     println(otherNames)
     val array = arrayOf(1,2,3,3,4)
     var fromArray = mutableSetOf(*array) //Eh necessário colocar * para pegar o ponteiro do array?
-    fromArray.contains(3)
-    2 in fromArray
+    fromArray.contains(3) //Verifica se contem o elemento 3
+    2 in fromArray //Verifica se tem o elemento 2 nessa colecao
     fromArray.add(5)
     fromArray.remove(1)
     fromArray
