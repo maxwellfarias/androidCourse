@@ -320,6 +320,13 @@ numbers.forEach{println(it)}
         it*2 // Retorna uma nova lista depois que cada elemento da lista anterior foi modificado pela expressao escolhida, nesse caso cada elemento da lista
         //sera multiplicado por 2   
     }
+    
+    //Filtra e depois modifica o valor da colecao
+    val test = listOf(1,2,5,6)
+    val newTest = test.filter { it%2==0 }
+        .map{
+            "Valor $it"
+        }
 
 
 //Classes e propriedades de acesso
