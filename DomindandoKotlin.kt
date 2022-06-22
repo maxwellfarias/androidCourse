@@ -510,7 +510,7 @@ numbers.forEach{println(it)}
             new <= maxUser /*a variavel current tera somente o seu valor alterado quando o novo valor atribuido (new)
             for menor ou igual ao maxUser (ou seja 10), caso o valor atribuido seja maior, entao sera atribuido o valor
             inicial 0. */
-        }
+        } 
     }
     val db = DB ()
     db.current = 20
@@ -563,11 +563,12 @@ fun main() {
     }
 
     Room(20, "Red", 50, 100).apply{
+        println("-------Room(20, \"Red\", 50, 100)--------")
         showColor()
         showNumber()
         showHeight()
         showWidth()
-    }
+    }e
 }
 open class Home (var number: Int) {
     var color: String = ""
