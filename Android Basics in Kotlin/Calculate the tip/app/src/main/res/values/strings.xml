@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">practices</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hint_cost_of_service">Cost of Service</string>
+    <string name="txt_service_rate">How was the service?</string>
+    <string name="radio_btn_amazing">Amazing (20%)</string>
+    <string name="radio_btn_good">Good (18%)</string>
+    <string name="text_round_up">Round up tip</string>
+    <string name="btn_calculate">CALCULATE</string>
+    <string name="alert_edit_text">O custo do serviço precisa ser preenchido.</string>
+    <string name="alert_radio_btn">A avaliação do serviço precisa ser preenchida.</string>
+    <string name="okay">Okay (15%)</string>
+    <string name="calc_response">Tip Amount: %s</string>
+</resources>

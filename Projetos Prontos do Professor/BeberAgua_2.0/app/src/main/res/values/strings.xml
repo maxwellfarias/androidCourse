@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BeberAgua</string>
+    <string name="title">Titulo do App</string>
+    <string name="subtitle">Subtitulo do Aplicativo</string>
+    <string name="hint">intervalo (min)</string>
+    <string name="notify">Notificar</string>
+    <string name="pause">Pausar</string>
+    <string name="validation">Intervalo deve ser definido</string>
+    <string name="zero_value">O campo deve ser maior que zero</string>
+    <string name="notified">Alarme ativado</string>
+    <string name="notified_pause">Alarme desativado</string>
+</resources>
