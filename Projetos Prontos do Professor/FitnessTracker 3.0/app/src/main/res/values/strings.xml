@@ -26,4 +26,10 @@
     <string name="search">Buscar</string>
     <string name="age">Idade</string>
     <string name="delete_message">Você realmente quer excluir esse item?</string>
+    <string name="share">share</string>
+    <string name="delete">delete</string>
+    <string name="more">more</string>
+    <string name="content_description_share">description share...</string>
+    <string name="content_description_delete">description delete ...</string>
+    <string name="content_description_more">description more</string>
 </resources>

@@ -7,12 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -45,23 +43,21 @@ class MainActivity : AppCompatActivity() {
         // 2) a onde a recyclerview vai aparecer (tela principal, tela cheia)
         // 3) logica - conectar o xml da celula DENTRO do recyclerView + a sua quantidade de elementos dinamicos
 
-//        val adapter = MainAdapter(mainItems, object : OnItemClickListener {
-//            // METODO 2: IMPL VIA OBJETO ANONIMO
-//            override fun onClick(id: Int) {
-//                when(id) {
-//                    1 -> {
-//                        val intent = Intent(this@MainActivity, ImcActivity::class.java)
-//                        startActivity(intent)
-//                    }
-//                    2 -> {
-//                        // abrir uma outra activity
-//                    }
-//                }
-//                Log.i("Teste", "clicou $id!!")
-//            }
-//        })
-
         val adapter = MainAdapter(mainItems) { id ->
+            // METODO 2: IMPL VIA OBJETO ANONIMO
+                when(id) {
+                    1 -> {
+                        val intent = Intent(this@MainActivity, ImcActivity::class.java)
+                        startActivity(intent)
+                    }
+                    2 -> {
+                        val intent = Intent(this@MainActivity, TmbActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+        }
+
+        /*val adapter = MainAdapter(mainItems) { id ->
             // METODO 3: IMPL VIA FUNCTIONS
             when (id) {
                 1 -> {
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             Log.i("Teste", "clicou $id!!")
-        }
+        }*/
 
         rvMain = findViewById(R.id.rv_main)
         rvMain.adapter = adapter
@@ -100,9 +96,9 @@ class MainActivity : AppCompatActivity() {
 
     private inner class MainAdapter(
         private val mainItems: List<MainItem>,
-//        private val onItemClickListener: OnItemClickListener
         private val onItemClickListener: (Int) -> Unit,
-        ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+       // private val onItemClickListener: OnItemClickListener,
+    ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
         // 1 - Qual é o layout XML da celula especifica (item)
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {

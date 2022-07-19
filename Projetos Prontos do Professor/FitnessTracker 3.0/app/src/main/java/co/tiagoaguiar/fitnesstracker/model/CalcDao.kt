@@ -2,6 +2,7 @@ package co.tiagoaguiar.fitnesstracker.model
 
 import androidx.room.*
 
+//Define os metodos que serao usados para fazer o CRUD
 @Dao
 interface CalcDao {
 

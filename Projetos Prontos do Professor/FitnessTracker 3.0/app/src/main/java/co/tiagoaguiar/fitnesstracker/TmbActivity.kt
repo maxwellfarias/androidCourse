@@ -29,6 +29,8 @@ class TmbActivity : AppCompatActivity() {
         lifestyle = findViewById(R.id.auto_lifestyle)
         val items = resources.getStringArray(R.array.tmb_lifestyle)
         lifestyle.setText(items.first())
+
+        //Da vida ao clicar no item que contem uma "lista suspensa"
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         lifestyle.setAdapter(adapter)
 

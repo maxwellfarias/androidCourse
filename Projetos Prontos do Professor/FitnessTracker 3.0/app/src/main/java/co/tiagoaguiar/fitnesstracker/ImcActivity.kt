@@ -1,5 +1,6 @@
 package co.tiagoaguiar.fitnesstracker
 
+import android.app.Application
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import co.tiagoaguiar.fitnesstracker.model.Calc
+import java.util.*
 
 class ImcActivity : AppCompatActivity() {
 
@@ -40,7 +42,6 @@ class ImcActivity : AppCompatActivity() {
             val height = editHeight.text.toString().toInt()
 
             val result = calculateImc(weight, height)
-            Log.d("Teste", "resultado: $result")
 
             val imcResponseId = imcResponse(result)
 
@@ -51,6 +52,7 @@ class ImcActivity : AppCompatActivity() {
                     // aqui vai rodar depois do click
                 }
                 .setNegativeButton(R.string.save) { dialog, which ->
+
                     Thread {
                         val app = application as App
                         val dao = app.db.calcDao()
@@ -79,14 +81,16 @@ class ImcActivity : AppCompatActivity() {
         }
     }
 
+    //Cria o menu de opcoes
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
+    //Implementa uma acao ao clicar no menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_search) {
-            finish()
+            finish() //Mata a atividade atual
             openListActivity()
         }
         return super.onOptionsItemSelected(item)
@@ -132,14 +136,14 @@ class ImcActivity : AppCompatActivity() {
 
     private fun calculateImc(weight: Int, height: Int): Double {
         // peso / (altura * altura)
-        return weight / ( (height / 100.0) * (height / 100.0) )
+        return weight / ((height / 100.0) * (height / 100.0))
     }
 
     private fun validate(): Boolean {
         return (editWeight.text.toString().isNotEmpty()
-            && editHeight.text.toString().isNotEmpty()
-            && !editWeight.text.toString().startsWith("0")
-            && !editHeight.text.toString().startsWith("0"))
+                && editHeight.text.toString().isNotEmpty()
+                && !editWeight.text.toString().startsWith("0")
+                && !editHeight.text.toString().startsWith("0"))
     }
 
 }
